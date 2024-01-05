@@ -1,14 +1,11 @@
-"use strict";
++"use strict";
 
 import "./input.css";
 import { createEl } from "./util/elementCreator";
 import createSVG from "./util/svgCreator";
 
 export function homepageGenerator() {
-  const body = document.querySelector("body");
-  body.classList.add("body");
-
-  const nav = createEl("nav", ["nav"], body);
+  const nav = createEl("nav", ["nav"]);
   const userIcon = createEl("div", ["userIcon"], nav);
   const userIconSvg = createSVG(
     {
@@ -152,5 +149,7 @@ export function homepageGenerator() {
     navSectionContainerlabels,
   );
 
-  const content = createEl("div", ["content"], body);
+  const content = createEl("div", ["content"]);
+
+  return [nav, content];
 }

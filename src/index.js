@@ -14,8 +14,14 @@ import { addPriority, removePriority } from "./todoPriorities";
 
 import { homepageGenerator } from "./homepage";
 
+import "./input.css"
+
 const task = [];
 const label = new Set();
 const priority = new Set();
 
-homepageGenerator();
+window.addEventListener("load", (e) => {
+  const body = document.querySelector("body");
+  body.classList.add("body");
+  body.append(...homepageGenerator());
+});
