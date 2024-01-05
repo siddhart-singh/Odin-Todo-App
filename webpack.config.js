@@ -1,6 +1,4 @@
-import webpack from "webpack";
-import { supportedLocales } from "./config.js";
-
+const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -68,12 +66,6 @@ const config = {
       },
     ],
   },
-  plugins: [
-    new webpack.ContextReplacementPlugin(
-      /^date-fns[/\\]locale$/,
-      new RegExp(`\\.[/\\\\](${supportedLocales.join("|")})[/\\\\]index\\.js$`),
-    ),
-  ],
 };
 
 module.exports = config;

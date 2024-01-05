@@ -3,3 +3,67 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.body {
+  @apply m-auto flex max-w-screen-2xl;
+}
+
+.nav {
+  @apply sticky left-0 top-0 flex h-screen w-80  flex-col gap-2 bg-red-300;
+}
+
+.userIcon {
+  @apply p-3;
+}
+
+.userIconSvg {
+  @apply h-8 w-8 text-gray-800 dark:text-black;
+}
+
+.navSectionContainer {
+  @apply px-3;
+}
+
+.navSectionContainerHeader {
+  @apply flex items-center justify-between gap-2 pr-0.5;
+}
+
+.navBtn {
+  @apply w-full bg-white px-2 py-2 text-left text-sm font-semibold;
+}
+
+.navSectionContainerHeading {
+  @apply mb-2 mt-4 font-bold;
+}
+
+.navSectionContainerBtn {
+  @apply flex items-center justify-center;
+}
+
+.navSectionContainerAddBtn {
+  @apply ml-auto;
+}
+
+.navSectionContainerBtnSvg {
+  @apply h-4 w-4 text-gray-800 dark:text-black;
+}
+
+.navSectionContainerContentContainer {
+  @apply flex flex-col gap-1;
+}
+
+/* .labelsContentContainer {
+  @apply;
+} */
+
+.label {
+  @apply flex min-w-fit items-center justify-center gap-1.5 bg-red-500 px-3 py-1 text-xs font-semibold tracking-wider;
+}
+
+.labelDeleteBtn {
+  @apply font-bold;
+}
+
+.labelDeleteBtnSvg {
+  @apply h-5 w-5 text-gray-800 dark:text-white;
+}
