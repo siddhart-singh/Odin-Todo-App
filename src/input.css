@@ -29,7 +29,7 @@
 }
 
 .navBtn {
-  @apply w-full bg-white px-2 py-2 text-left text-sm font-semibold;
+  @apply w-64 bg-white p-2 text-left text-sm font-semibold;
 }
 
 .navSectionContainerHeading {
@@ -57,7 +57,23 @@
 }
 
 .navSectionContainerContentContainer {
-  @apply flex flex-col gap-1;
+  @apply flex  flex-col gap-1 overflow-hidden;
+}
+
+.addProjectForm {
+  @apply  grid h-0 w-64 grid-cols-6 items-center gap-1 bg-white transition-all p-0;
+}
+
+.displayProjectForm {
+  @apply p-2 h-9 transition-all;
+}
+
+.addProjectFormInput {
+  @apply col-span-4 bg-transparent text-sm font-semibold text-black placeholder:text-sm placeholder:font-semibold focus-visible:outline-none;
+}
+
+.addProjectFormBtn {
+  @apply rounded-full bg-black  text-sm font-semibold text-white;
 }
 
 /* .labelsContentContainer {

@@ -93,6 +93,21 @@ export function homepageGenerator() {
     navSectionContainerProjects,
   );
 
+  const addProjectForm = createEl("form", ["addProjectForm"], projectsContent);
+  const addProjectInput = createEl(
+    "input",
+    ["addProjectFormInput"],
+    addProjectForm,
+    "",
+    {
+      placeholder: "Project Name",
+      type: "text",
+      name: "projectName",
+    },
+  );
+  createEl("button", ["addProjectFormBtn"], addProjectForm, "+");
+  createEl("button", ["addProjectFormBtn"], addProjectForm, "-");
+
   const navSectionContainerlabels = createEl(
     "div",
     ["navSectionContainer"],

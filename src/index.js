@@ -14,9 +14,15 @@ import { addPriority, removePriority } from "./todoPriorities";
 
 import { homepageGenerator } from "./homepage";
 
-import { collapseBtn, createProject } from "./dom";
+import {
+  collapseBtn,
+  createProject,
+  displayProjectPrompt,
+  closeProjectPrompt,
+} from "./dom";
 
 import "./input.css";
+import { doc } from "prettier";
 
 const task = [];
 const label = new Set();
@@ -34,9 +40,18 @@ window.addEventListener("load", (e) => {
   const projectContentContainer = document.querySelector(
     ".projectContentContainer",
   );
+  const projectForm = document.querySelector(".addProjectForm");
+  const projectFormBtns = document.querySelectorAll(".addProjectFormBtn");
 
   projectAddBtn.addEventListener("click", (e) => {
-    projectContentContainer.append(createProject());
+    displayProjectPrompt(projectForm);
+  });
+
+  projectFormBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeProjectPrompt(projectForm);
+    });
   });
   collapseBtn(projectCollapseBtn);
   collapseBtn(labelCollapseBtn);

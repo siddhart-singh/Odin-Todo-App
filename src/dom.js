@@ -14,3 +14,11 @@ export function collapseBtn(btn) {
 export function createProject() {
   return createEl("button", ["navBtn"], "", "My Project");
 }
+
+export function displayProjectPrompt(e) {
+  e.classList.add("displayProjectForm");
+}
+
+export function closeProjectPrompt(e) {
+  e.classList.remove("displayProjectForm");
+}
