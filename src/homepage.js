@@ -66,7 +66,11 @@ export function homepageGenerator() {
 
   const projectsContainerHeaderCollapseBtn = createEl(
     "button",
-    ["navSectionContainerBtn"],
+    [
+      "navSectionContainerBtn",
+      "navSectionContainerCollapseBtn",
+      "projectCollapseBtn",
+    ],
     projectsContainerHeader,
   );
   createSVG(
@@ -126,7 +130,11 @@ export function homepageGenerator() {
 
   const labelsContainerHeaderCollapseBtn = createEl(
     "button",
-    ["navSectionContainerBtn"],
+    [
+      "navSectionContainerBtn",
+      "navSectionContainerCollapseBtn",
+      "labelCollapseBtn",
+    ],
     labelsContainerHeader,
   );
   createSVG(

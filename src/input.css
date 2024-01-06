@@ -44,6 +44,14 @@
   @apply ml-auto;
 }
 
+.navSectionContainerCollapseBtn {
+  @apply transition-transform;
+}
+
+.collapseBtnRotate {
+  @apply rotate-180;
+}
+
 .navSectionContainerBtnSvg {
   @apply h-4 w-4 text-gray-800 dark:text-black;
 }
@@ -73,5 +81,5 @@
 }
 
 .content {
-  @apply  flex h-screen w-full flex-col items-start justify-start;
+  @apply flex h-screen w-full flex-col items-start justify-start;
 }
