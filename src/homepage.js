@@ -47,7 +47,7 @@ export function homepageGenerator() {
   );
   const projectsContainerHeaderAddBtn = createEl(
     "button",
-    ["navSectionContainerBtn", "navSectionContainerAddBtn"],
+    ["navSectionContainerBtn", "navSectionContainerAddBtn", "projectAddBtn"],
     projectsContainerHeader,
   );
   createSVG(
@@ -89,7 +89,7 @@ export function homepageGenerator() {
 
   const projectsContent = createEl(
     "div",
-    ["navSectionContainerContentContainer"],
+    ["navSectionContainerContentContainer", "projectContentContainer"],
     navSectionContainerProjects,
   );
 

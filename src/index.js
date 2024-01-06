@@ -14,7 +14,7 @@ import { addPriority, removePriority } from "./todoPriorities";
 
 import { homepageGenerator } from "./homepage";
 
-import { collapseBtn } from "./dom";
+import { collapseBtn, createProject } from "./dom";
 
 import "./input.css";
 
@@ -30,8 +30,14 @@ window.addEventListener("load", (e) => {
   // const addProjectBtn = document.querySelector(".");
   const projectCollapseBtn = document.querySelector(".projectCollapseBtn");
   const labelCollapseBtn = document.querySelector(".labelCollapseBtn");
+  const projectAddBtn = document.querySelector(".projectAddBtn");
+  const projectContentContainer = document.querySelector(
+    ".projectContentContainer",
+  );
 
+  projectAddBtn.addEventListener("click", (e) => {
+    projectContentContainer.append(createProject());
+  });
   collapseBtn(projectCollapseBtn);
   collapseBtn(labelCollapseBtn);
-  
 });
