@@ -20,5 +20,6 @@ export function displayProjectPrompt(e) {
 }
 
 export function closeProjectPrompt(e) {
+  e.reset();
   e.classList.remove("displayProjectForm");
 }

@@ -9,8 +9,7 @@ import {
   setProjectName,
 } from "./todoItems";
 
-import { addLabel, removeLabel } from "./todoLabels";
-import { addPriority, removePriority } from "./todoPriorities";
+import { addItems, removeItems } from "./util/setFunctions";
 
 import { homepageGenerator } from "./homepage";
 
@@ -27,6 +26,7 @@ import { doc } from "prettier";
 const task = [];
 const label = new Set();
 const priority = new Set();
+const projectName = new Set();
 
 window.addEventListener("load", (e) => {
   const body = document.querySelector("body");
@@ -42,6 +42,8 @@ window.addEventListener("load", (e) => {
   );
   const projectForm = document.querySelector(".addProjectForm");
   const projectFormBtns = document.querySelectorAll(".addProjectFormBtn");
+  const addProjectBtn = document.querySelector(".addBtn");
+  const projectFormText = document.querySelector(".addProjectFormInput");
 
   projectAddBtn.addEventListener("click", (e) => {
     displayProjectPrompt(projectForm);
@@ -50,9 +52,17 @@ window.addEventListener("load", (e) => {
   projectFormBtns.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
+      if (e.target == addProjectBtn) {
+        const name = projectFormText.value;
+        if (name.length != 0) {
+          addItems(projectName, [name]);
+          console.log(projectName);
+        }
+      }
       closeProjectPrompt(projectForm);
     });
   });
+
   collapseBtn(projectCollapseBtn);
   collapseBtn(labelCollapseBtn);
 });

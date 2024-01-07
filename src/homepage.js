@@ -105,8 +105,8 @@ export function homepageGenerator() {
       name: "projectName",
     },
   );
-  createEl("button", ["addProjectFormBtn"], addProjectForm, "+");
-  createEl("button", ["addProjectFormBtn"], addProjectForm, "-");
+  createEl("button", ["addProjectFormBtn", "addBtn"], addProjectForm, "+");
+  createEl("button", ["addProjectFormBtn", "cancelBtn"], addProjectForm, "-");
 
   const navSectionContainerlabels = createEl(
     "div",
