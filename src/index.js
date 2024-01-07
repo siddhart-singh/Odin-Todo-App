@@ -13,6 +13,8 @@ import { addItems, removeItems } from "./util/setFunctions";
 
 import { homepageGenerator } from "./homepage";
 
+import { createProjectsNavElements } from "./todoProject";
+
 import {
   collapseBtn,
   createProject,
@@ -44,7 +46,7 @@ window.addEventListener("load", (e) => {
   const projectFormBtns = document.querySelectorAll(".addProjectFormBtn");
   const addProjectBtn = document.querySelector(".addBtn");
   const projectFormText = document.querySelector(".addProjectFormInput");
-
+  const projectListContent = document.querySelector(".projectListContainer");
   projectAddBtn.addEventListener("click", (e) => {
     displayProjectPrompt(projectForm);
   });
@@ -56,7 +58,8 @@ window.addEventListener("load", (e) => {
         const name = projectFormText.value;
         if (name.length != 0) {
           addItems(projectName, [name]);
-          console.log(projectName);
+          projectListContent.textContent = "";
+          projectListContent.append(...createProjectsNavElements(projectName));
         }
       }
       closeProjectPrompt(projectForm);

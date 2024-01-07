@@ -113,6 +113,12 @@ export function homepageGenerator() {
     ["navSectionContainer"],
     nav,
   );
+
+  const projectListContainer = createEl(
+    "div",
+    ["projectListContainer", "navSectionContainerContentContainer"],
+    projectsContent,
+  );
   const labelsContainerHeader = createEl(
     "div",
     ["navSectionContainerHeader"],
