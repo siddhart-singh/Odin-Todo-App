@@ -15,6 +15,10 @@ import { homepageGenerator } from "./homepage";
 
 import { createProjectsNavElements } from "./todoProject";
 
+import { todayGenerator } from "./today";
+
+import contentReset from "./util/contentReset";
+
 import {
   collapseBtn,
   createProject,
@@ -47,6 +51,8 @@ window.addEventListener("load", (e) => {
   const addProjectBtn = document.querySelector(".addBtn");
   const projectFormText = document.querySelector(".addProjectFormInput");
   const projectListContent = document.querySelector(".projectListContainer");
+  const todayPage = document.querySelector(".today");
+  const content = document.querySelector("#content");
   projectAddBtn.addEventListener("click", (e) => {
     displayProjectPrompt(projectForm);
   });
@@ -68,4 +74,10 @@ window.addEventListener("load", (e) => {
 
   collapseBtn(projectCollapseBtn);
   collapseBtn(labelCollapseBtn);
+
+  todayPage.addEventListener("click", (e) => {
+    e.preventDefault();
+    contentReset();
+    content.append(...todayGenerator());
+  });
 });

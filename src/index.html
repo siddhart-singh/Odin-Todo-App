@@ -90,55 +90,45 @@
 
         </nav>
         <div class="content">
-            <!-- <header class="content-header px-14 pt-12  w-full ">
-                <h1 class="content-header-heading mx-44 border-b pb-2 border-black border-opacity-20 text-xl font-bold">
+            <header class="content-header ">
+                <h1 class="content-header-heading">
                     Today</h1>
             </header>
 
-            <section class="form-container w-full px-14 py-4 flex items-center justify-center">
-                <form class="content-form max-w-screen-md w-full border border-black p-2 flex flex-col gap-2">
-                    <div class="todo-details  flex flex-col gap-1 ">
-                        <input
-                            class="placeholder:text-base  placeholder:font-bold text-base font-semibold focus-visible:outline-none"
-                            type="text" name="task-name" id="task-name" placeholder="Task name">
-                        <input
-                            class="placeholder:text-sm placeholder:font-semibold text-sm font-semibold focus-visible:outline-none"
-                            type="text" name="description" id="description" placeholder="Description">
+            <div class="tasks">
+            </div>
 
-                        <div class="form-optionals flex gap-3">
-                            <input
-                                class="text-sm px-1 text-black bg-transparent border border-black font-semibold text-opacity-55 py-0.5"
-                                type="date" name="date" id="date" placeholder="Today">
-                            <select
-                                class="text-sm px-1 text-black bg-transparent border border-black font-semibold text-opacity-55 py-0.5"
-                                name="priority" id="priority">
-                                <option
-                                    class="text-sm px-1 text-black bg-transparent border border-opacity-55 font-semibold text-opacity-55 py-0.5 "
-                                    value="no-value" disabled selected>Priority</option>
+            <section class="contentContainer">
+                <form class="content-form">
+                    <div class="todo-details">
+                        <input class="todo-details-name " type="text" name="task-name" id="task-name"
+                            placeholder="Task name">
+                        <input class="todo-details-description" type="text" name="description" id="description"
+                            placeholder="Description">
+
+                        <div class="form-optionals ">
+                            <input class="form-details-tags" type="date" name="date" id="date" placeholder="Today">
+                            <select class="form-details-tags" name="priority" id="priority">
+                                <option value="no-value" disabled selected>Priority</option>
                             </select>
-                            <select
-                                class="text-sm px-1 text-black bg-transparent border border-black font-semibold text-opacity-55 py-0.5"
-                                name="Label" id="Label">
-                                <option
-                                    class="text-sm px-1 text-black bg-transparent border border-black font-semibold text-opacity-55 py-0.5"
-                                    value="no-value" disabled selected>Label</option>
+                            <select class="form-details-tags" name="Label" id="Label">
+                                <option value=" no-value" disabled selected>Label</option>
+
                             </select>
                         </div>
                     </div>
-                    <div class="form-submit  flex gap-3 justify-between ">
-                        <select name="project" id="project"
-                            class="text-sm px-1 text-black bg-transparent border border-black font-semibold text-opacity-55 py-0.5">
-                            <option value="today"
-                                class="text-sm px-1 text-black bg-transparent border border-black font-semibold text-opacity-55 py-0.5"
-                                selected>Today</option>
+                    <div class="form-submit   ">
+                        <select name="project" id="project" class="form-details-tags">
+                            <option value="today" selected>Today</option>
                         </select>
-                        <div class="form-button flex gap-3">
-                            <button class="text-sm font-semibold py-1 px-3 border border-black" type="reset">Clear</button>
-                            <button class="text-sm font-semibold py-1 px-2 border border-black" type="submit">Add Task</button>
+                        <div class="form-button-container ">
+                            <button class="todo-form-btns" type="reset">Clear</button>
+                            <button class="todo-form-btns" type="submit">Add
+                                Task</button>
                         </div>
                     </div>
                 </form>
-            </section> -->
+            </section>
         </div>
     </body>
 

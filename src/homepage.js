@@ -24,7 +24,7 @@ export function homepageGenerator() {
   const navSectionContainerTodo = createEl("div", ["navSectionContainer"], nav);
   const navBtnToday = createEl(
     "button",
-    ["navBtn"],
+    ["navBtn", "today"],
     navSectionContainerTodo,
     "Today",
   );
@@ -178,7 +178,7 @@ export function homepageGenerator() {
     navSectionContainerlabels,
   );
 
-  const content = createEl("div", ["content"]);
+  const content = createEl("div", ["content"], "", "", { id: "content" });
 
   return [nav, content];
 }
