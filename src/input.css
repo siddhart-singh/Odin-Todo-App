@@ -9,7 +9,7 @@
 }
 
 .nav {
-  @apply sticky left-0 top-0 flex h-screen w-80  flex-col gap-2 bg-red-300;
+  @apply sticky left-0 top-0 flex max-h-full min-h-screen w-80  flex-col gap-2 bg-red-300;
 }
 
 .userIcon {
@@ -97,7 +97,7 @@
 }
 
 .content {
-  @apply flex h-screen w-full flex-col items-start justify-start;
+  @apply flex h-screen w-full flex-col items-start justify-start overflow-scroll;
 }
 
 .contentContainer {
@@ -146,4 +146,56 @@
 
 .todo-form-btns {
   @apply border border-black px-3 py-1 text-sm font-semibold;
+}
+
+.tasks {
+  @apply flex w-full flex-col items-center justify-center gap-5 px-14 py-4;
+}
+
+.task {
+  @apply relative grid w-full max-w-screen-md gap-2 border border-black p-2;
+  grid-template-columns: auto 1fr auto;
+}
+
+.completeMarkerContainenr {
+  @apply pt-1;
+}
+
+.completeMarker {
+  @apply block h-4 w-4 rounded-full bg-red-300;
+}
+
+.taskContent {
+  @apply flex flex-col gap-1;
+}
+
+.taskHeading {
+  @apply text-base font-bold;
+}
+
+.taskDescription {
+  @apply text-sm font-semibold;
+}
+
+.otherTags {
+  @apply flex gap-2 text-sm font-semibold;
+}
+
+.taskDate,
+.taskPriority,
+.taskTag {
+  @apply border  border-black px-2 py-0.5;
+}
+
+.taskOptions {
+  @apply p-1;
+}
+
+.taskEdit,
+.taskDelete {
+  @apply border border-black px-3 py-0.5 text-sm font-bold;
+}
+
+.divider {
+  @apply absolute -bottom-3  w-full  border border-black border-opacity-10;
 }

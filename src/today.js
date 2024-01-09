@@ -25,7 +25,7 @@ export function todayGenerator() {
       type: "text",
       name: "task-name",
       id: "task-name",
-      placeholder: "Description",
+      placeholder: "Task name",
     },
   );
   const todoDetailsDescription = createEl(
@@ -77,7 +77,7 @@ export function todayGenerator() {
     selected: true,
   });
 
-  const formSubmit = createEl("div", ["form-submit"], todoDetails);
+  const formSubmit = createEl("div", ["form-submit"], contentForm);
   const todoDetailsProject = createEl(
     "select",
     ["form-details-tags"],
@@ -104,5 +104,5 @@ export function todayGenerator() {
     type: "submit",
   });
 
-  return [contentHeader, contentContainer];
+  return [contentHeader, tasks, contentContainer];
 }

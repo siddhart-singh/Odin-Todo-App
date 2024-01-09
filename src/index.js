@@ -28,6 +28,8 @@ import {
 
 import "./input.css";
 import { doc } from "prettier";
+import { sub } from "date-fns";
+import taskGenerator from "./generateTask";
 
 const task = [];
 const label = new Set();
@@ -53,6 +55,7 @@ window.addEventListener("load", (e) => {
   const projectListContent = document.querySelector(".projectListContainer");
   const todayPage = document.querySelector(".today");
   const content = document.querySelector("#content");
+  let tasks;
   projectAddBtn.addEventListener("click", (e) => {
     displayProjectPrompt(projectForm);
   });
@@ -79,5 +82,17 @@ window.addEventListener("load", (e) => {
     e.preventDefault();
     contentReset();
     content.append(...todayGenerator());
+    tasks = document.querySelector(".tasks");
+  });
+
+  content.addEventListener("click", (e) => {
+    if (
+      e.target.closest(".todo-form-btns") &&
+      e.target.closest(".todo-form-btns").type == "submit"
+    ) {
+      e.preventDefault();
+      const submitBtn = e.target;
+      tasks.append(...taskGenerator());
+    }
   });
 });
