@@ -35,7 +35,7 @@ export function todayGenerator() {
     "",
     {
       type: "text",
-      name: "description",
+      name: "task-description",
       id: "description",
       placeholder: "Description",
     },
@@ -61,17 +61,17 @@ export function todayGenerator() {
     disabled: true,
     selected: true,
   });
-  const todoDetailsLabels = createEl(
+  const todoDetailsTags = createEl(
     "select",
     ["form-details-tags"],
     formOptionalsDiv,
     "",
     {
-      name: "Label",
-      id: "Label",
+      name: "tag",
+      id: "tag",
     },
   );
-  createEl("option", [], todoDetailsLabels, "Tags", {
+  createEl("option", [], todoDetailsTags, "Tags", {
     value: "no-value",
     disabled: true,
     selected: true,

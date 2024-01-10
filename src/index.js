@@ -11,6 +11,8 @@ import {
 
 import { addItems, removeItems } from "./util/setFunctions";
 
+import { createTaskObject } from "./util/taskMethods";
+
 import { homepageGenerator } from "./homepage";
 
 import { createProjectsNavElements } from "./todoProject";
@@ -19,6 +21,7 @@ import { todayGenerator } from "./today";
 
 import contentReset from "./util/contentReset";
 
+import getUserInputs from "./util/userInputsGetter";
 import {
   collapseBtn,
   createProject,
@@ -28,13 +31,13 @@ import {
 
 import "./input.css";
 import { doc } from "prettier";
-import { sub } from "date-fns";
+import { set, sub } from "date-fns";
 import taskGenerator from "./generateTask";
 
-const task = [];
-const label = new Set();
-const priority = new Set();
-const projectName = new Set();
+const taskArray = [];
+const tagSet = new Set();
+const prioritySet = new Set();
+const projectNameSet = new Set();
 
 window.addEventListener("load", (e) => {
   const body = document.querySelector("body");
@@ -55,7 +58,7 @@ window.addEventListener("load", (e) => {
   const projectListContent = document.querySelector(".projectListContainer");
   const todayPage = document.querySelector(".today");
   const content = document.querySelector("#content");
-  let tasks;
+  let tasks, form;
   projectAddBtn.addEventListener("click", (e) => {
     displayProjectPrompt(projectForm);
   });
@@ -83,16 +86,19 @@ window.addEventListener("load", (e) => {
     contentReset();
     content.append(...todayGenerator());
     tasks = document.querySelector(".tasks");
+    form = document.querySelector(".content-form");
   });
 
   content.addEventListener("click", (e) => {
-    if (
-      e.target.closest(".todo-form-btns") &&
-      e.target.closest(".todo-form-btns").type == "submit"
-    ) {
-      e.preventDefault();
-      const submitBtn = e.target;
-      tasks.append(...taskGenerator());
-    }
+    let formData;
+    form.addEventListener("submit", (event) => {
+      formData = new FormData(event.target);
+      if (
+        e.target.closest(".todo-form-btns") &&
+        e.target.closest(".todo-form-btns").type == "submit"
+      )
+        taskArray.push(createTaskObject(getUserInputs(formData)));
+      event.preventDefault();
+    });
   });
 });

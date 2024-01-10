@@ -2,7 +2,7 @@
 
 import { createEl } from "./util/elementCreator";
 
-export default function taskGenerator() {
+export default function taskGenerator(userInput = {}) {
   const task = createEl("div", ["task"]);
 
   const completeMarkerContainer = createEl(
@@ -17,17 +17,27 @@ export default function taskGenerator() {
   );
 
   const taskContent = createEl("div", ["taskContent"], task);
-  const taskHeading = createEl("h2", ["taskHeading"], taskContent, "HELLO");
+  const taskHeading = createEl(
+    "h2",
+    ["taskHeading"],
+    taskContent,
+    `${userInput.name}`,
+  );
   const taskDescription = createEl(
     "p",
     ["taskDescription"],
     taskContent,
-    "WORLD",
+    `${userInput.description}`,
   );
   const otherTags = createEl("div", ["otherTags"], taskContent);
-  const taskDate = createEl("span", ["taskDate"], otherTags, "Today");
-  const taskPriority = createEl("span", ["taskPriority"], otherTags, "High");
-  const taskTag = createEl("span", ["taskTag"], otherTags, "School");
+  const taskDate = createEl("span", ["taskDate"], otherTags, `${userInput.date}`);
+  const taskPriority = createEl(
+    "span",
+    ["taskPriority"],
+    otherTags,
+    `${userInput.priority}`,
+  );
+  const taskTag = createEl("span", ["taskTag"], otherTags, `${userInput.tag}`);
 
   const taskOptions = createEl("div", ["taskOptions"], task);
   const taskEditBtn = createEl("button", ["taskEdit"], taskOptions, "Edit");
