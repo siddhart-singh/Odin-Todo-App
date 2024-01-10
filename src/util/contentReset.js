@@ -1,5 +1,4 @@
-export default function contentReset() {
-  const content = document.querySelector("#content");
+export default function contentReset(content) {
   content.innerText = "";
   content.setAttribute("class", "content");
   return content;

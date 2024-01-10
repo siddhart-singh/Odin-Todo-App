@@ -17,7 +17,7 @@ import { homepageGenerator } from "./homepage";
 
 import { createProjectsNavElements } from "./todoProject";
 
-import { todayGenerator } from "./today";
+import { contentGenerator } from "./generateContent";
 
 import contentReset from "./util/contentReset";
 
@@ -69,9 +69,11 @@ window.addEventListener("load", (e) => {
       if (e.target == addProjectBtn) {
         const name = projectFormText.value;
         if (name.length != 0) {
-          addItems(projectName, [name]);
+          addItems(projectNameSet, [name]);
           projectListContent.textContent = "";
-          projectListContent.append(...createProjectsNavElements(projectName));
+          projectListContent.append(
+            ...createProjectsNavElements(projectNameSet),
+          );
         }
       }
       closeProjectPrompt(projectForm);
@@ -81,13 +83,13 @@ window.addEventListener("load", (e) => {
   collapseBtn(projectCollapseBtn);
   collapseBtn(labelCollapseBtn);
 
-  todayPage.addEventListener("click", (e) => {
-    e.preventDefault();
-    contentReset();
-    content.append(...todayGenerator());
-    tasks = document.querySelector(".tasks");
-    form = document.querySelector(".content-form");
-  });
+  // todayPage.addEventListener("click", (e) => {
+  //   e.preventDefault();
+  //   contentReset();
+  //   content.append(...contentGenerator());
+  //   tasks = document.querySelector(".tasks");
+  //   form = document.querySelector(".content-form");
+  // });
 
   content.addEventListener("click", (e) => {
     let formData;
@@ -96,9 +98,20 @@ window.addEventListener("load", (e) => {
       if (
         e.target.closest(".todo-form-btns") &&
         e.target.closest(".todo-form-btns").type == "submit"
-      )
+      ) {
         taskArray.push(createTaskObject(getUserInputs(formData)));
-      event.preventDefault();
+        tasks.append(...taskArray[0].element);
+        form.reset();
+        event.preventDefault();
+      }
     });
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target.closest(".navBtn")) {
+      const contentHeading = e.target.textContent;
+      contentReset(content);
+      content.append(...contentGenerator(contentHeading));
+    }
   });
 });

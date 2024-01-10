@@ -2,13 +2,13 @@
 
 import { createEl } from "./util/elementCreator";
 
-export function todayGenerator() {
+export function contentGenerator(contentHeadingText) {
   const contentHeader = createEl("header", ["content-header"]);
   const contentHeaderHeading = createEl(
     "h1",
     ["content-header-heading"],
     contentHeader,
-    "Today",
+    `${contentHeadingText}`,
   );
 
   const tasks = createEl("div", ["tasks"]);
