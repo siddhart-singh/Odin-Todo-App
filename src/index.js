@@ -95,10 +95,7 @@ window.addEventListener("load", (e) => {
     let formData;
     form.addEventListener("submit", (event) => {
       formData = new FormData(event.target);
-      if (
-        e.target.closest(".todo-form-btns") &&
-        e.target.closest(".todo-form-btns").type == "submit"
-      ) {
+      if (e.target.closest(".addTaskBtn")) {
         taskArray.push(createTaskObject(getUserInputs(formData)));
         tasks.append(...taskArray[0].element);
         form.reset();

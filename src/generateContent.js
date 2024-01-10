@@ -14,7 +14,14 @@ export function contentGenerator(contentHeadingText) {
   const tasks = createEl("div", ["tasks"]);
 
   const contentContainer = createEl("section", ["contentContainer"]);
-  const contentForm = createEl("form", ["content-form"], contentContainer);
+
+  contentContainer.append(formGenerator());
+
+  return [contentHeader, tasks, contentContainer];
+}
+
+function formGenerator() {
+  const contentForm = createEl("form", ["content-form"]);
   const todoDetails = createEl("div", ["todo-details"], contentForm);
   const todoDetailsName = createEl(
     "input",
@@ -100,9 +107,15 @@ export function contentGenerator(contentHeadingText) {
   createEl("button", ["todo-form-btns"], formButtonContainer, "Clear", {
     type: "reset",
   });
-  createEl("button", ["todo-form-btns"], formButtonContainer, "Add Task", {
-    type: "submit",
-  });
+  createEl(
+    "button",
+    ["todo-form-btns", "addTaskBtn"],
+    formButtonContainer,
+    "Add Task",
+    {
+      type: "submit",
+    },
+  );
 
-  return [contentHeader, tasks, contentContainer];
+  return contentForm;
 }
