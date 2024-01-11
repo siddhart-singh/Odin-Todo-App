@@ -2,6 +2,6 @@
 
 import taskGenerator from "../generateTask";
 
-export function createTaskObject(userInput, taskElement) {
+export function createTaskObject(userInput) {
   return { ...userInput, element: taskGenerator(userInput) };
 }

@@ -7,5 +7,6 @@ export default function getUserInputs(formData) {
     date: formData.get("date"),
     priority: formData.get("priority"),
     tag: formData.get("tag"),
+    project: formData.get("project"),
   };
 }

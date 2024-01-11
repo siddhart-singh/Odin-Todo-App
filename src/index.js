@@ -17,10 +17,10 @@ import { homepageGenerator } from "./homepage";
 
 import { createProjectsNavElements } from "./todoProject";
 
-import { contentGenerator } from "./generateContent";
+import { contentGenerator, contentPageGenerator } from "./generateContent";
 
-import contentReset from "./util/contentReset";
-
+import elementReset from "./util/elementReset";
+import getTaskElements from "./util/getTaskElemets";
 import getUserInputs from "./util/userInputsGetter";
 import {
   collapseBtn,
@@ -29,9 +29,11 @@ import {
   closeProjectPrompt,
 } from "./dom";
 
+import displayElements from "./util/displayElements";
+
 import "./input.css";
 import { doc } from "prettier";
-import { set, sub } from "date-fns";
+import { add, set, sub } from "date-fns";
 import taskGenerator from "./generateTask";
 
 const taskArray = [];
@@ -42,7 +44,7 @@ const projectNameSet = new Set();
 window.addEventListener("load", (e) => {
   const body = document.querySelector("body");
   body.classList.add("body");
-  body.append(...homepageGenerator());
+  displayElements(body, homepageGenerator());
 
   // const addProjectBtn = document.querySelector(".");
   const projectCollapseBtn = document.querySelector(".projectCollapseBtn");
@@ -71,8 +73,9 @@ window.addEventListener("load", (e) => {
         if (name.length != 0) {
           addItems(projectNameSet, [name]);
           projectListContent.textContent = "";
-          projectListContent.append(
-            ...createProjectsNavElements(projectNameSet),
+          displayElements(
+            projectListContent,
+            createProjectsNavElements(projectNameSet),
           );
         }
       }
@@ -85,30 +88,43 @@ window.addEventListener("load", (e) => {
 
   // todayPage.addEventListener("click", (e) => {
   //   e.preventDefault();
-  //   contentReset();
-  //   content.append(...contentGenerator());
-  //   tasks = document.querySelector(".tasks");
+  //   elementReset();
+  //   displayElements(content,contentGenerator());
+  //
   //   form = document.querySelector(".content-form");
   // });
 
-  content.addEventListener("click", (e) => {
-    let formData;
-    form.addEventListener("submit", (event) => {
-      formData = new FormData(event.target);
-      if (e.target.closest(".addTaskBtn")) {
-        taskArray.push(createTaskObject(getUserInputs(formData)));
-        tasks.append(...taskArray[0].element);
-        form.reset();
-        event.preventDefault();
-      }
-    });
-  });
+  // content.addEventListener("click", (e) => {
+  //   let formData;
+  //   form.addEventListener("submit", (event) => {
+  //     formData = new FormData(event.target);
+  //     if (e.target.closest(".addTaskBtn")) {
+  //       displayElements(tasks,taskArray[0].element);
+  //       form.reset();
+  //       event.preventDefault();
+  //     }
+  //   });
+  // });
 
   window.addEventListener("click", (e) => {
     if (e.target.closest(".navBtn")) {
       const contentHeading = e.target.textContent;
-      contentReset(content);
-      content.append(...contentGenerator(contentHeading));
+      elementReset(content, ["content"]);
+      const contentPage = contentPageGenerator(contentHeading);
+      displayElements(content, contentPage);
+      const form = document.querySelector(".content-form");
+      const taskContainer = document.querySelector(".tasks");
+      const addTaskBtn = document.querySelector(".addTaskBtn");
+
+      form.addEventListener("submit", (event) => {
+        const formData = new FormData(form);
+        taskArray.push(createTaskObject(getUserInputs(formData)));
+        const domEl = getTaskElements(taskArray);
+        elementReset(taskContainer, ["tasks"]);
+        displayElements(taskContainer, domEl);
+        form.reset();
+        event.preventDefault();
+      });
     }
   });
 });

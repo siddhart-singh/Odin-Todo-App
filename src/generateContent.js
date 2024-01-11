@@ -2,7 +2,7 @@
 
 import { createEl } from "./util/elementCreator";
 
-export function contentGenerator(contentHeadingText) {
+export function contentPageGenerator(contentHeadingText) {
   const contentHeader = createEl("header", ["content-header"]);
   const contentHeaderHeading = createEl(
     "h1",
@@ -33,6 +33,7 @@ function formGenerator() {
       name: "task-name",
       id: "task-name",
       placeholder: "Task name",
+      required: true,
     },
   );
   const todoDetailsDescription = createEl(
@@ -45,6 +46,7 @@ function formGenerator() {
       name: "task-description",
       id: "description",
       placeholder: "Description",
+      required: true,
     },
   );
 
@@ -96,7 +98,7 @@ function formGenerator() {
     },
   );
   createEl("option", [], todoDetailsProject, "Today", {
-    value: "Today",
+    value: "today",
     selected: true,
   });
   const formButtonContainer = createEl(
@@ -113,7 +115,7 @@ function formGenerator() {
     formButtonContainer,
     "Add Task",
     {
-      type: "submit",
+      // type: "submit",
     },
   );
 

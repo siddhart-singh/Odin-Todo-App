@@ -93,20 +93,9 @@ export function homepageGenerator() {
     navSectionContainerProjects,
   );
 
-  const addProjectForm = createEl("form", ["addProjectForm"], projectsContent);
-  const addProjectInput = createEl(
-    "input",
-    ["addProjectFormInput"],
-    addProjectForm,
-    "",
-    {
-      placeholder: "Project Name",
-      type: "text",
-      name: "projectName",
-    },
+  projectsContent.append(
+    createNavInputs("projectsNameInput", "Project name", "projectName"),
   );
-  createEl("button", ["addProjectFormBtn", "addBtn"], addProjectForm, "+");
-  createEl("button", ["addProjectFormBtn", "cancelBtn"], addProjectForm, "-");
 
   const navSectionContainerlabels = createEl(
     "div",
@@ -181,4 +170,22 @@ export function homepageGenerator() {
   const content = createEl("div", ["content"], "", "", { id: "content" });
 
   return [nav, content];
+}
+
+function createNavInputs(inputClass, inputPlaceHolder, inputName) {
+  const addProjectForm = createEl("form", ["addProjectForm"]);
+  const addProjectInput = createEl(
+    "input",
+    ["addProjectFormInput", `${inputClass}`],
+    addProjectForm,
+    "",
+    {
+      placeholder: `${inputPlaceHolder}`,
+      type: "text",
+      name: `${inputName}`,
+    },
+  );
+  createEl("button", ["addProjectFormBtn", "addBtn"], addProjectForm, "+");
+  createEl("button", ["addProjectFormBtn", "cancelBtn"], addProjectForm, "-");
+  return addProjectForm;
 }
