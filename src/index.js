@@ -9,6 +9,8 @@ import {
   setProjectName,
 } from "./todoItems";
 
+import { createEl } from "./util/elementCreator";
+
 import { addItems, removeItems } from "./util/setFunctions";
 
 import { createTaskObject } from "./util/taskMethods";
@@ -23,7 +25,7 @@ import { generateFormOption } from "./util/generateFormOptions";
 
 import { generateLabel, generateProject } from "./util/generateNavElements";
 
-import elementReset from "./util/elementReset";
+import { elementReset, navOptionReset } from "./util/elementReset";
 import getTaskElements from "./util/getTaskElemets";
 import getUserInputs from "./util/userInputsGetter";
 import {
@@ -86,6 +88,7 @@ window.addEventListener("load", (e) => {
   displayNavForm(labelFormExpander, labelForm);
 
   projectForm.addEventListener("submit", (e) => {
+    const projectFormOption = document.getElementById("project");
     const formData = new FormData(e.target);
     e.preventDefault();
     projectForm.reset();
@@ -95,9 +98,22 @@ window.addEventListener("load", (e) => {
     projectNameSet.forEach((item) => {
       displayElements(projectListContent, generateProject(item));
     });
+
+    if (projectFormOption) {
+      navOptionReset(
+        projectFormOption,
+        ["form-details-tags"],
+        createEl("option", [], "", "Today", {
+          value: "today",
+          selected: true,
+        }),
+      );
+      generateFormOption(projectNameSet, projectFormOption);
+    }
   });
 
   labelForm.addEventListener("submit", (e) => {
+    const tagFormOption = document.getElementById("tag");
     const formData = new FormData(e.target);
     e.preventDefault();
     labelForm.reset();
@@ -107,6 +123,18 @@ window.addEventListener("load", (e) => {
     tagSet.forEach((item) => {
       displayElements(labelListContent, generateLabel(item));
     });
+    if (tagFormOption) {
+      navOptionReset(
+        tagFormOption,
+        ["form-details-tags"],
+        createEl("option", [], "", "Tags", {
+          value: "no-value",
+          disabled: true,
+          selected: true,
+        }),
+      );
+      generateFormOption(tagSet, tagFormOption);
+    }
   });
 
   // console.log(tagSet, projectNameSet);
@@ -163,8 +191,8 @@ window.addEventListener("load", (e) => {
         console.log(domEl);
         elementReset(taskContainer, ["tasks"]);
         displayElements(taskContainer, domEl);
-        form.reset();
         event.preventDefault();
+        form.reset();
       });
     }
   });
