@@ -19,6 +19,8 @@ import { createProjectsNavElements } from "./todoProject";
 
 import { contentGenerator, contentPageGenerator } from "./generateContent";
 
+import { generateFormOption } from "./util/generateFormOptions";
+
 import { generateLabel, generateProject } from "./util/generateNavElements";
 
 import elementReset from "./util/elementReset";
@@ -88,9 +90,9 @@ window.addEventListener("load", (e) => {
     e.preventDefault();
     projectForm.reset();
     const inputValue = [getUserInputs(formData, ["projectName"]).projectName];
-    addItems(prioritySet, inputValue);
+    addItems(projectNameSet, inputValue);
     elementReset(projectListContent, ["projectListContainer"]);
-    prioritySet.forEach((item) => {
+    projectNameSet.forEach((item) => {
       displayElements(projectListContent, generateProject(item));
     });
   });
@@ -133,7 +135,11 @@ window.addEventListener("load", (e) => {
     if (e.target.closest(".navBtn")) {
       currentTab = e.target.textContent;
       elementReset(content, ["content"]);
-      const contentPage = contentPageGenerator(currentTab, projectNameSet);
+      const contentPage = contentPageGenerator(
+        currentTab,
+        projectNameSet,
+        tagSet,
+      );
       displayElements(content, contentPage);
       const form = document.querySelector(".content-form");
       const taskContainer = document.querySelector(".tasks");

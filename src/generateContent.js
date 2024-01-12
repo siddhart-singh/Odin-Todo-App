@@ -1,8 +1,9 @@
 "use strict";
 
 import { createEl } from "./util/elementCreator";
+import { generateFormOption } from "./util/generateFormOptions";
 
-export function contentPageGenerator(contentHeadingText, projectNames) {
+export function contentPageGenerator(contentHeadingText, projects, labels) {
   const contentHeader = createEl("header", ["content-header"]);
   const contentHeaderHeading = createEl(
     "h1",
@@ -15,12 +16,12 @@ export function contentPageGenerator(contentHeadingText, projectNames) {
 
   const contentContainer = createEl("section", ["contentContainer"]);
 
-  contentContainer.append(formGenerator(projectNames));
+  contentContainer.append(formGenerator(projects, labels));
 
   return [contentHeader, tasks, contentContainer];
 }
 
-function formGenerator(projectNames) {
+function formGenerator(projects, labels) {
   const contentForm = createEl("form", ["content-form"]);
   const todoDetails = createEl("div", ["todo-details"], contentForm);
   const todoDetailsName = createEl(
@@ -85,6 +86,7 @@ function formGenerator(projectNames) {
     disabled: true,
     selected: true,
   });
+  generateFormOption(labels, todoDetailsTags);
 
   const formSubmit = createEl("div", ["form-submit"], contentForm);
   const todoDetailsProject = createEl(
@@ -102,11 +104,7 @@ function formGenerator(projectNames) {
     selected: true,
   });
 
-  projectNames.forEach((projectName) => {
-    createEl("option", [], todoDetailsProject, projectName, {
-      value: `${projectName.toLowerCase()}`,
-    });
-  });
+  generateFormOption(projects, todoDetailsProject);
   const formButtonContainer = createEl(
     "div",
     ["form-button-container"],
