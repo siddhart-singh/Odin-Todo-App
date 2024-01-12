@@ -1,12 +1,10 @@
 "use strict";
 
-export default function getUserInputs(formData) {
-  return {
-    name: formData.get("task-name"),
-    description: formData.get("task-description"),
-    date: formData.get("date"),
-    priority: formData.get("priority"),
-    tag: formData.get("tag"),
-    project: formData.get("project"),
-  };
+export default function getUserInputs(formData, inputs = []) {
+  const returnObj = {};
+  inputs.forEach((input) => {
+    returnObj[`${input}`] = formData.get(`${input}`);
+  });
+
+  return returnObj;
 }

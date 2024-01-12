@@ -2,7 +2,7 @@
 
 import { createEl } from "./util/elementCreator";
 
-export function contentPageGenerator(contentHeadingText) {
+export function contentPageGenerator(contentHeadingText, projectNames) {
   const contentHeader = createEl("header", ["content-header"]);
   const contentHeaderHeading = createEl(
     "h1",
@@ -15,12 +15,12 @@ export function contentPageGenerator(contentHeadingText) {
 
   const contentContainer = createEl("section", ["contentContainer"]);
 
-  contentContainer.append(formGenerator());
+  contentContainer.append(formGenerator(projectNames));
 
   return [contentHeader, tasks, contentContainer];
 }
 
-function formGenerator() {
+function formGenerator(projectNames) {
   const contentForm = createEl("form", ["content-form"]);
   const todoDetails = createEl("div", ["todo-details"], contentForm);
   const todoDetailsName = createEl(
@@ -30,8 +30,8 @@ function formGenerator() {
     "",
     {
       type: "text",
-      name: "task-name",
-      id: "task-name",
+      name: "name",
+      id: "name",
       placeholder: "Task name",
       required: true,
     },
@@ -43,7 +43,7 @@ function formGenerator() {
     "",
     {
       type: "text",
-      name: "task-description",
+      name: "description",
       id: "description",
       placeholder: "Description",
       required: true,
@@ -100,6 +100,12 @@ function formGenerator() {
   createEl("option", [], todoDetailsProject, "Today", {
     value: "today",
     selected: true,
+  });
+
+  projectNames.forEach((projectName) => {
+    createEl("option", [], todoDetailsProject, projectName, {
+      value: `${projectName.toLowerCase()}`,
+    });
   });
   const formButtonContainer = createEl(
     "div",

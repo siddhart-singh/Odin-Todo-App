@@ -60,7 +60,12 @@
   @apply flex  flex-col gap-1 overflow-hidden;
 }
 
-.addProjectForm {
+.projectListContainer {
+  @apply flex flex-col gap-1;
+}
+
+.addProjectForm,
+.addLabelForm {
   @apply grid h-0 w-64 grid-cols-6 items-center gap-1 bg-white p-0 transition-all;
 }
 
@@ -68,11 +73,11 @@
   @apply h-9 p-2 transition-all;
 }
 
-.addProjectFormInput {
+.addNavFormInput {
   @apply col-span-4 bg-transparent text-sm font-semibold text-black placeholder:text-sm placeholder:font-semibold focus-visible:outline-none;
 }
 
-.addProjectFormBtn {
+.addNavFormBtn {
   @apply rounded-full bg-black  text-sm font-semibold text-white;
 }
 

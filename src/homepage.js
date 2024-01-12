@@ -47,7 +47,7 @@ export function homepageGenerator() {
   );
   const projectsContainerHeaderAddBtn = createEl(
     "button",
-    ["navSectionContainerBtn", "navSectionContainerAddBtn", "projectAddBtn"],
+    ["navSectionContainerBtn", "navSectionContainerAddBtn", "addProjectBtn"],
     projectsContainerHeader,
   );
   createSVG(
@@ -94,7 +94,13 @@ export function homepageGenerator() {
   );
 
   projectsContent.append(
-    createNavInputs("projectsNameInput", "Project name", "projectName"),
+    createNavInputs(
+      "addProjectForm",
+      "projectNameInput",
+      "Project name",
+      "projectName",
+      "project",
+    ),
   );
 
   const navSectionContainerlabels = createEl(
@@ -121,7 +127,7 @@ export function homepageGenerator() {
   );
   const labelsContainerHeaderAddBtn = createEl(
     "button",
-    ["navSectionContainerBtn", "navSectionContainerAddBtn"],
+    ["navSectionContainerBtn", "navSectionContainerAddBtn", "addLabelBtn"],
     labelsContainerHeader,
   );
   createSVG(
@@ -163,8 +169,24 @@ export function homepageGenerator() {
 
   const labelsContent = createEl(
     "div",
-    ["labelsContentContainer"],
+    ["navSectionContainerContentContainer", "projectContentContainer"],
     navSectionContainerlabels,
+  );
+
+  labelsContent.append(
+    createNavInputs(
+      "addLabelForm",
+      "labeNameInput",
+      "Label name",
+      "labelName",
+      "label",
+    ),
+  );
+
+  const labelsContainer = createEl(
+    "div",
+    ["labelsContentContainer"],
+    labelsContent,
   );
 
   const content = createEl("div", ["content"], "", "", { id: "content" });
@@ -172,12 +194,18 @@ export function homepageGenerator() {
   return [nav, content];
 }
 
-function createNavInputs(inputClass, inputPlaceHolder, inputName) {
-  const addProjectForm = createEl("form", ["addProjectForm"]);
-  const addProjectInput = createEl(
+function createNavInputs(
+  formClass,
+  inputClass,
+  inputPlaceHolder,
+  inputName,
+  btnClass,
+) {
+  const addNavForm = createEl("form", [`${formClass}`]);
+  const addNavInput = createEl(
     "input",
-    ["addProjectFormInput", `${inputClass}`],
-    addProjectForm,
+    ["addNavFormInput", `${inputClass}`],
+    addNavForm,
     "",
     {
       placeholder: `${inputPlaceHolder}`,
@@ -185,7 +213,15 @@ function createNavInputs(inputClass, inputPlaceHolder, inputName) {
       name: `${inputName}`,
     },
   );
-  createEl("button", ["addProjectFormBtn", "addBtn"], addProjectForm, "+");
-  createEl("button", ["addProjectFormBtn", "cancelBtn"], addProjectForm, "-");
-  return addProjectForm;
+  createEl("button", ["addNavFormBtn", `${btnClass}addBtn`], addNavForm, "+", {
+    required: true,
+    type: "submit",
+  });
+  createEl(
+    "button",
+    ["addNavFormBtn", `${btnClass}cancelBtn`],
+    addNavForm,
+    "-",
+  );
+  return addNavForm;
 }

@@ -19,6 +19,8 @@ import { createProjectsNavElements } from "./todoProject";
 
 import { contentGenerator, contentPageGenerator } from "./generateContent";
 
+import { generateLabel, generateProject } from "./util/generateNavElements";
+
 import elementReset from "./util/elementReset";
 import getTaskElements from "./util/getTaskElemets";
 import getUserInputs from "./util/userInputsGetter";
@@ -49,42 +51,63 @@ window.addEventListener("load", (e) => {
   // const addProjectBtn = document.querySelector(".");
   const projectCollapseBtn = document.querySelector(".projectCollapseBtn");
   const labelCollapseBtn = document.querySelector(".labelCollapseBtn");
-  const projectAddBtn = document.querySelector(".projectAddBtn");
+  const projectAddBtns = document.querySelectorAll(
+    ".navSectionContainerAddBtn",
+  );
   const projectContentContainer = document.querySelector(
     ".projectContentContainer",
   );
-  const projectForm = document.querySelector(".addProjectForm");
-  const projectFormBtns = document.querySelectorAll(".addProjectFormBtn");
-  const addProjectBtn = document.querySelector(".addBtn");
   const projectFormText = document.querySelector(".addProjectFormInput");
   const projectListContent = document.querySelector(".projectListContainer");
+  const labelListContent = document.querySelector(".labelsContentContainer");
   const todayPage = document.querySelector(".today");
   const content = document.querySelector("#content");
-  let tasks, form;
-  projectAddBtn.addEventListener("click", (e) => {
-    displayProjectPrompt(projectForm);
-  });
 
-  projectFormBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (e.target == addProjectBtn) {
-        const name = projectFormText.value;
-        if (name.length != 0) {
-          addItems(projectNameSet, [name]);
-          projectListContent.textContent = "";
-          displayElements(
-            projectListContent,
-            createProjectsNavElements(projectNameSet),
-          );
-        }
-      }
-      closeProjectPrompt(projectForm);
-    });
-  });
+  const projectForm = document.querySelector(".addProjectForm");
+  const projectFormExpander = document.querySelector(".addProjectBtn");
+  const projectInput = document.querySelector(".projectNameInput");
+  const projectAddBtn = document.querySelector(".projectAddBtn");
+  const projectCancelBtn = document.querySelector(".projectCancelBtn");
+
+  const labelForm = document.querySelector(".addLabelForm");
+  const labelFormExpander = document.querySelector(".addLabelBtn");
+  const labelInput = document.querySelector(".labelNameInput");
+  const labelAddBtn = document.querySelector(".labelAddBtn");
+  const labelCancelBtn = document.querySelector(".labelCancelBtn");
+
+  let currentTab = "today";
 
   collapseBtn(projectCollapseBtn);
   collapseBtn(labelCollapseBtn);
+
+  displayNavForm(projectFormExpander, projectForm);
+  displayNavForm(labelFormExpander, labelForm);
+
+  projectForm.addEventListener("submit", (e) => {
+    const formData = new FormData(e.target);
+    e.preventDefault();
+    projectForm.reset();
+    const inputValue = [getUserInputs(formData, ["projectName"]).projectName];
+    addItems(prioritySet, inputValue);
+    elementReset(projectListContent, ["projectListContainer"]);
+    prioritySet.forEach((item) => {
+      displayElements(projectListContent, generateProject(item));
+    });
+  });
+
+  labelForm.addEventListener("submit", (e) => {
+    const formData = new FormData(e.target);
+    e.preventDefault();
+    labelForm.reset();
+    const inputValue = [getUserInputs(formData, ["labelName"]).labelName];
+    addItems(tagSet, inputValue);
+    elementReset(labelListContent, ["labelsContentContainer"]);
+    tagSet.forEach((item) => {
+      displayElements(labelListContent, generateLabel(item));
+    });
+  });
+
+  // console.log(tagSet, projectNameSet);
 
   // todayPage.addEventListener("click", (e) => {
   //   e.preventDefault();
@@ -108,18 +131,30 @@ window.addEventListener("load", (e) => {
 
   window.addEventListener("click", (e) => {
     if (e.target.closest(".navBtn")) {
-      const contentHeading = e.target.textContent;
+      currentTab = e.target.textContent;
       elementReset(content, ["content"]);
-      const contentPage = contentPageGenerator(contentHeading);
+      const contentPage = contentPageGenerator(currentTab, projectNameSet);
       displayElements(content, contentPage);
       const form = document.querySelector(".content-form");
       const taskContainer = document.querySelector(".tasks");
-      const addTaskBtn = document.querySelector(".addTaskBtn");
+      displayElements(taskContainer, getTaskElements(taskArray, currentTab));
 
       form.addEventListener("submit", (event) => {
         const formData = new FormData(form);
-        taskArray.push(createTaskObject(getUserInputs(formData)));
-        const domEl = getTaskElements(taskArray);
+        taskArray.push(
+          createTaskObject(
+            getUserInputs(formData, [
+              "name",
+              "description",
+              "date",
+              "priority",
+              "tag",
+              "project",
+            ]),
+          ),
+        );
+        const domEl = getTaskElements(taskArray, currentTab);
+        console.log(domEl);
         elementReset(taskContainer, ["tasks"]);
         displayElements(taskContainer, domEl);
         form.reset();
@@ -128,3 +163,9 @@ window.addEventListener("load", (e) => {
     }
   });
 });
+
+function displayNavForm(exanderBtn, form) {
+  exanderBtn.addEventListener("click", (e) => {
+    form.classList.toggle("displayProjectForm");
+  });
+}
