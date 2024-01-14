@@ -49,7 +49,7 @@
 }
 
 .collapseBtnRotate {
-  @apply rotate-180;
+  @apply -rotate-90;
 }
 
 .navSectionContainerBtnSvg {
@@ -61,7 +61,7 @@
 }
 
 .projectListContainer {
-  @apply flex flex-col gap-1;
+  @apply flex h-40 flex-col gap-1 overflow-y-auto pr-2 transition-all;
 }
 
 .addProjectForm,
@@ -98,7 +98,7 @@
 }
 
 .labelsContentContainer {
-  @apply flex flex-wrap items-start justify-start gap-4;
+  @apply flex h-40 flex-wrap content-start items-start justify-start gap-2 overflow-y-auto pr-2 transition-all;
 }
 
 .content {
@@ -203,4 +203,8 @@
 
 .divider {
   @apply absolute -bottom-3  w-full  border border-black border-opacity-10;
+}
+
+.hideNavSection {
+  @apply h-0;
 }

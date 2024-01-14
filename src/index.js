@@ -53,11 +53,7 @@ window.addEventListener("load", (e) => {
   displayElements(body, homepageGenerator());
 
   // const addProjectBtn = document.querySelector(".");
-  const projectCollapseBtn = document.querySelector(".projectCollapseBtn");
-  const labelCollapseBtn = document.querySelector(".labelCollapseBtn");
-  const projectAddBtns = document.querySelectorAll(
-    ".navSectionContainerAddBtn",
-  );
+  const navAddBtns = document.querySelectorAll(".navSectionContainerAddBtn");
   const projectContentContainer = document.querySelector(
     ".projectContentContainer",
   );
@@ -69,23 +65,39 @@ window.addEventListener("load", (e) => {
 
   const projectForm = document.querySelector(".addProjectForm");
   const projectFormExpander = document.querySelector(".addProjectBtn");
+  const projectCollapseBtn = document.querySelector(".projectCollapseBtn");
   const projectInput = document.querySelector(".projectNameInput");
   const projectAddBtn = document.querySelector(".projectAddBtn");
   const projectCancelBtn = document.querySelector(".projectCancelBtn");
 
   const labelForm = document.querySelector(".addLabelForm");
   const labelFormExpander = document.querySelector(".addLabelBtn");
+  const labelCollapseBtn = document.querySelector(".labelCollapseBtn");
   const labelInput = document.querySelector(".labelNameInput");
   const labelAddBtn = document.querySelector(".labelAddBtn");
   const labelCancelBtn = document.querySelector(".labelCancelBtn");
 
   let currentTab = "today";
 
-  collapseBtn(projectCollapseBtn);
-  collapseBtn(labelCollapseBtn);
+  projectFormExpander.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleClasses(projectForm, "displayProjectForm");
+  });
 
-  displayNavForm(projectFormExpander, projectForm);
-  displayNavForm(labelFormExpander, labelForm);
+  labelFormExpander.addEventListener("click", (e) => {
+    e.preventDefault();
+    toggleClasses(labelForm, "displayProjectForm");
+  });
+
+  projectCollapseBtn.addEventListener("click", (e) => {
+    toggleClasses(projectListContent, "hideNavSection");
+    toggleClasses(projectCollapseBtn, "collapseBtnRotate");
+  });
+
+  labelCollapseBtn.addEventListener("click", (e) => {
+    toggleClasses(labelListContent, "hideNavSection");
+    toggleClasses(labelCollapseBtn, "collapseBtnRotate");
+  });
 
   projectForm.addEventListener("submit", (e) => {
     const projectFormOption = document.getElementById("project");
@@ -234,4 +246,8 @@ function displayFormOptionals(
     elementReset(parentEl, [`${parentElClass}`]);
     generateFormOption(set, parentEl, firstOption, firstOptionAttributes);
   }
+}
+
+function toggleClasses(element, toggleClass) {
+  element.classList.toggle(toggleClass);
 }
