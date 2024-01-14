@@ -2,9 +2,15 @@
 
 import { createEl } from "./elementCreator";
 
-export function generateFormOption(optionsList, parentEl) {
+export function generateFormOption(
+  optionsList,
+  parentEl,
+  firstChild,
+  firstChildAttribute,
+) {
+  createEl("option", [], parentEl, firstChild, firstChildAttribute);
+
   optionsList.forEach((option) => {
-    console.log(parentEl);
     createEl("option", [], parentEl, option, {
       value: `${option.toLowerCase()}`,
     });

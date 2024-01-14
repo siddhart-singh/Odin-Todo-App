@@ -36,12 +36,12 @@ import {
 } from "./dom";
 
 import displayElements from "./util/displayElements";
-
+import setDefaultProjectOption from "./util/setDefaultProjectOption";
 import "./input.css";
 import { doc } from "prettier";
 import { add, set, sub } from "date-fns";
 import taskGenerator from "./generateTask";
-
+import displayNavForm from "./util/displayNavForm";
 const taskArray = [];
 const tagSet = new Set();
 const prioritySet = new Set();
@@ -92,24 +92,26 @@ window.addEventListener("load", (e) => {
     const formData = new FormData(e.target);
     e.preventDefault();
     projectForm.reset();
-    const inputValue = [getUserInputs(formData, ["projectName"]).projectName];
-    addItems(projectNameSet, inputValue);
-    elementReset(projectListContent, ["projectListContainer"]);
-    projectNameSet.forEach((item) => {
-      displayElements(projectListContent, generateProject(item));
-    });
 
-    if (projectFormOption) {
-      navOptionReset(
-        projectFormOption,
-        ["form-details-tags"],
-        createEl("option", [], "", "Today", {
-          value: "today",
-          selected: true,
-        }),
-      );
-      generateFormOption(projectNameSet, projectFormOption);
-    }
+    displayNavOptionals(
+      formData,
+      "projectName",
+      projectNameSet,
+      projectListContent,
+      "projectListContainer",
+      generateProject,
+    );
+    const defaultElementAttributes = {
+      value: "today",
+    };
+    displayFormOptionals(
+      projectFormOption,
+      "form-details-tags",
+      "Today",
+      defaultElementAttributes,
+      projectNameSet,
+    );
+    setDefaultProjectOption(document.querySelector("#project"), currentTab);
   });
 
   labelForm.addEventListener("submit", (e) => {
@@ -117,24 +119,27 @@ window.addEventListener("load", (e) => {
     const formData = new FormData(e.target);
     e.preventDefault();
     labelForm.reset();
-    const inputValue = [getUserInputs(formData, ["labelName"]).labelName];
-    addItems(tagSet, inputValue);
-    elementReset(labelListContent, ["labelsContentContainer"]);
-    tagSet.forEach((item) => {
-      displayElements(labelListContent, generateLabel(item));
-    });
-    if (tagFormOption) {
-      navOptionReset(
-        tagFormOption,
-        ["form-details-tags"],
-        createEl("option", [], "", "Tags", {
-          value: "no-value",
-          disabled: true,
-          selected: true,
-        }),
-      );
-      generateFormOption(tagSet, tagFormOption);
-    }
+
+    displayNavOptionals(
+      formData,
+      "labelName",
+      tagSet,
+      labelListContent,
+      "labelsContentContainer",
+      generateLabel,
+    );
+    const defaultElementAttributes = {
+      value: "no-value",
+      disabled: true,
+      selected: true,
+    };
+    displayFormOptionals(
+      tagFormOption,
+      "form-details-tags",
+      "Tags",
+      defaultElementAttributes,
+      tagSet,
+    );
   });
 
   // console.log(tagSet, projectNameSet);
@@ -169,6 +174,8 @@ window.addEventListener("load", (e) => {
         tagSet,
       );
       displayElements(content, contentPage);
+
+      setDefaultProjectOption(document.querySelector("#project"), currentTab);
       const form = document.querySelector(".content-form");
       const taskContainer = document.querySelector(".tasks");
       displayElements(taskContainer, getTaskElements(taskArray, currentTab));
@@ -198,8 +205,33 @@ window.addEventListener("load", (e) => {
   });
 });
 
-function displayNavForm(exanderBtn, form) {
-  exanderBtn.addEventListener("click", (e) => {
-    form.classList.toggle("displayProjectForm");
+function displayNavOptionals(
+  formData,
+  inputName,
+  set,
+  parentEl,
+  parentElClass,
+  generatorFn,
+) {
+  const inputValue = [
+    getUserInputs(formData, [`${inputName}`])[`${inputName}`],
+  ];
+  addItems(set, inputValue);
+  elementReset(parentEl, [`${parentElClass}`]);
+  set.forEach((item) => {
+    displayElements(parentEl, generatorFn(item));
   });
+}
+
+function displayFormOptionals(
+  parentEl,
+  parentElClass,
+  firstOption,
+  firstOptionAttributes,
+  set,
+) {
+  if (parentEl) {
+    elementReset(parentEl, [`${parentElClass}`]);
+    generateFormOption(set, parentEl, firstOption, firstOptionAttributes);
+  }
 }

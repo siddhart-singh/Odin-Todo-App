@@ -3,25 +3,25 @@
 import { createEl } from "./util/elementCreator";
 import { generateFormOption } from "./util/generateFormOptions";
 
-export function contentPageGenerator(contentHeadingText, projects, labels) {
+export function contentPageGenerator(currentTab, projects, labels) {
   const contentHeader = createEl("header", ["content-header"]);
   const contentHeaderHeading = createEl(
     "h1",
     ["content-header-heading"],
     contentHeader,
-    `${contentHeadingText}`,
+    `${currentTab}`,
   );
 
   const tasks = createEl("div", ["tasks"]);
 
   const contentContainer = createEl("section", ["contentContainer"]);
 
-  contentContainer.append(formGenerator(projects, labels));
+  contentContainer.append(formGenerator(projects, labels, currentTab));
 
   return [contentHeader, tasks, contentContainer];
 }
 
-function formGenerator(projects, labels) {
+function formGenerator(projects, labels, currentTab) {
   const contentForm = createEl("form", ["content-form"]);
   const todoDetails = createEl("div", ["todo-details"], contentForm);
   const todoDetailsName = createEl(
@@ -81,12 +81,12 @@ function formGenerator(projects, labels) {
       id: "tag",
     },
   );
-  createEl("option", [], todoDetailsTags, "Tags", {
+
+  generateFormOption(labels, todoDetailsTags, "Tags", {
     value: "no-value",
     disabled: true,
     selected: true,
   });
-  generateFormOption(labels, todoDetailsTags);
 
   const formSubmit = createEl("div", ["form-submit"], contentForm);
   const todoDetailsProject = createEl(
@@ -99,17 +99,15 @@ function formGenerator(projects, labels) {
       id: "project",
     },
   );
-  createEl("option", [], todoDetailsProject, "Today", {
+  generateFormOption(projects, todoDetailsProject, "Today", {
     value: "today",
-    selected: true,
   });
-
-  generateFormOption(projects, todoDetailsProject);
   const formButtonContainer = createEl(
     "div",
     ["form-button-container"],
     formSubmit,
   );
+
   createEl("button", ["todo-form-btns"], formButtonContainer, "Clear", {
     type: "reset",
   });

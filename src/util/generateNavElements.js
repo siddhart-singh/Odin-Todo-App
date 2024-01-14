@@ -4,7 +4,7 @@ import { createEl } from "./elementCreator";
 import createSVG from "./svgCreator";
 
 export function generateProject(projectName) {
-  const div = createEl("div", ["rpoject"]);
+  const div = createEl("div", ["project"]);
   const projectNameBtn = createEl("button", ["navBtn"], div, projectName);
 
   return [div];
