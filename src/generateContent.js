@@ -4,6 +4,8 @@ import { createEl } from "./util/elementCreator";
 import { generateFormOption } from "./util/generateFormOptions";
 
 export function contentPageGenerator(currentTab, projects, labels) {
+  const deleteTaskWarning = createEl("div", ["deletedTaskWarning"]);
+
   const contentHeader = createEl("header", ["content-header"]);
   const contentHeaderHeading = createEl(
     "h1",
@@ -18,7 +20,7 @@ export function contentPageGenerator(currentTab, projects, labels) {
 
   contentContainer.append(formGenerator(projects, labels, currentTab));
 
-  return [contentHeader, tasks, contentContainer];
+  return [deleteTaskWarning, contentHeader, tasks, contentContainer];
 }
 
 function formGenerator(projects, labels, currentTab) {

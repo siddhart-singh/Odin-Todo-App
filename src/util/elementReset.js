@@ -1,6 +1,8 @@
 export function elementReset(element, classes = []) {
   element.innerText = "";
-  element.setAttribute("class", ...classes);
+  if (classes.length != 0) {
+    element.setAttribute("class", ...classes);
+  }
   return element;
 }
 

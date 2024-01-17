@@ -11,7 +11,7 @@ export default function taskGenerator(userInput = {}) {
     task,
   );
   const completeMarker = createEl(
-    "span",
+    "button",
     ["completeMarker"],
     completeMarkerContainer,
   );

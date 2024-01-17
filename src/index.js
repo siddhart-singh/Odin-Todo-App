@@ -1,5 +1,7 @@
 "use strict";
 
+import "./input.css";
+
 import {
   CreateTask,
   setTaskTitle,
@@ -18,13 +20,13 @@ import { createTaskObject } from "./util/taskMethods";
 import { homepageGenerator } from "./homepage";
 
 import { createProjectsNavElements } from "./todoProject";
-
+import removeWarning from "./util/removeWarning";
 import { contentGenerator, contentPageGenerator } from "./generateContent";
-
+import generateWarning from "./util/generateWarning";
 import { generateFormOption } from "./util/generateFormOptions";
-
+import toggleClasses from "./util/toggleClasses";
 import { generateLabel, generateProject } from "./util/generateNavElements";
-
+import displayNavOptionals from "./util/displayNavOptionals";
 import { elementReset, navOptionReset } from "./util/elementReset";
 import getTaskElements from "./util/getTaskElemets";
 import getUserInputs from "./util/userInputsGetter";
@@ -34,7 +36,7 @@ import {
   displayProjectPrompt,
   closeProjectPrompt,
 } from "./dom";
-
+import displayFormOptionals from "./util/displayFormOptionals";
 import displayElements from "./util/displayElements";
 import setDefaultProjectOption from "./util/setDefaultProjectOption";
 import "./input.css";
@@ -42,6 +44,7 @@ import { doc } from "prettier";
 import { add, set, sub } from "date-fns";
 import taskGenerator from "./generateTask";
 import displayNavForm from "./util/displayNavForm";
+
 const taskArray = [];
 const tagSet = new Set();
 const prioritySet = new Set();
@@ -77,7 +80,9 @@ window.addEventListener("load", (e) => {
   const labelAddBtn = document.querySelector(".labelAddBtn");
   const labelCancelBtn = document.querySelector(".labelCancelBtn");
 
-  let currentTab = "today";
+  let currentTab = "today",
+    deletedTaskWarning,
+    warning;
 
   projectFormExpander.addEventListener("click", (e) => {
     e.preventDefault();
@@ -206,48 +211,31 @@ window.addEventListener("load", (e) => {
             ]),
           ),
         );
-        const domEl = getTaskElements(taskArray, currentTab);
-        console.log(domEl);
+        const currentProjectTask = getTaskElements(taskArray, currentTab);
+
         elementReset(taskContainer, ["tasks"]);
-        displayElements(taskContainer, domEl);
+        displayElements(taskContainer, currentProjectTask);
+
+        deletedTaskWarning = document.querySelector(".deletedTaskWarning");
         event.preventDefault();
         form.reset();
       });
     }
+
+    if (e.target.closest(".completeMarker")) {
+      const completeMarker = e.target;
+      taskArray.forEach((task) => {
+        if (e.target.closest(".task").isEqualNode(task.element[0])) {
+          toggleClasses(completeMarker, "completeMarkerChecked");
+        }
+        if (completeMarker.classList.contains("completeMarkerChecked")) {
+          warning = generateWarning();
+          displayElements(deletedTaskWarning, warning);
+          removeWarning(warning[0], 5000);
+        } else {
+          removeWarning(warning[0], 0);
+        }
+      });
+    }
   });
 });
-
-function displayNavOptionals(
-  formData,
-  inputName,
-  set,
-  parentEl,
-  parentElClass,
-  generatorFn,
-) {
-  const inputValue = [
-    getUserInputs(formData, [`${inputName}`])[`${inputName}`],
-  ];
-  addItems(set, inputValue);
-  elementReset(parentEl, [`${parentElClass}`]);
-  set.forEach((item) => {
-    displayElements(parentEl, generatorFn(item));
-  });
-}
-
-function displayFormOptionals(
-  parentEl,
-  parentElClass,
-  firstOption,
-  firstOptionAttributes,
-  set,
-) {
-  if (parentEl) {
-    elementReset(parentEl, [`${parentElClass}`]);
-    generateFormOption(set, parentEl, firstOption, firstOptionAttributes);
-  }
-}
-
-function toggleClasses(element, toggleClass) {
-  element.classList.toggle(toggleClass);
-}

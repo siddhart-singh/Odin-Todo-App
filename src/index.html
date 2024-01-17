@@ -8,6 +8,12 @@
         <link rel="stylesheet" href="/dist/output.css">
         <link rel="stylesheet" href="./input.css">
         <script src="./index.js" defer></script>
+        <style>
+            .warning-temp {
+                transform: translateY(0);
+                opacity: 100;
+            }
+        </style>
     </head>
 
     <body class="body">
@@ -100,6 +106,14 @@
 
         </nav>
         <div class="content">
+
+            <div class="deletedTaskWarning ">
+                <div class="warning ">
+                    <span class="timer"></span>
+                    <button class="undoWarningBtn">UNDO1</button>
+                </div>
+            </div>
+
             <header class="content-header ">
                 <h1 class="content-header-heading">
                     Today</h1>
@@ -107,7 +121,7 @@
 
             <div class="tasks  ">
                 <div class="task ">
-                    <div class="completeMarkerContainenr "><span class="completeMarker "></span></div>
+                    <div class="completeMarkerContainenr "><button class="completeMarker"></button></div>
                     <div class="taskContent ">
                         <h2 class="taskHeading ">Hello</h2>
                         <p class="taskDescription ">World</p>
@@ -227,5 +241,20 @@
             </section>
         </div>
     </body>
+    <script>
+        const btn = document.querySelector(".completeMarker");
+        const warning = document.querySelectorAll(".warning");
+        btn.addEventListener("click", e => {
+            setTimeout(() => { warning[0].classList.toggle("warning-temp") }, 500)
+            setTimeout(() => { warning[1].classList.toggle("warning-temp") }, 1000)
+            setTimeout(() => { warning[2].classList.toggle("warning-temp") }, 1500)
+        })
+        warning.forEach(warn => {
+            warn.addEventListener("click", e => {
+                warn.remove()
+            })
+        })
+
+    </script>
 
 </html>
