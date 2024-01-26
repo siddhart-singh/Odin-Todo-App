@@ -159,7 +159,7 @@ body {
 }
 
 .deletedTaskWarning {
-  @apply absolute right-10  top-5 flex flex-col-reverse gap-2 transition-all;
+  @apply absolute z-10 right-10  top-5 flex flex-col-reverse gap-2 transition-all;
 }
 
 .warning {

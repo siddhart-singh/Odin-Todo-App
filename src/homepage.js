@@ -189,9 +189,11 @@ export function homepageGenerator() {
     labelsContent,
   );
 
+  const deleteTaskWarning = createEl("div", ["deletedTaskWarning"]);
+
   const content = createEl("div", ["content"], "", "", { id: "content" });
 
-  return [nav, content];
+  return [nav, deleteTaskWarning, content];
 }
 
 function createNavInputs(

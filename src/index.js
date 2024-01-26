@@ -80,8 +80,8 @@ window.addEventListener("load", (e) => {
   const labelAddBtn = document.querySelector(".labelAddBtn");
   const labelCancelBtn = document.querySelector(".labelCancelBtn");
 
+  const deletedTaskWarning = document.querySelector(".deletedTaskWarning");
   let currentTab = "today",
-    deletedTaskWarning,
     warning;
 
   projectFormExpander.addEventListener("click", (e) => {
@@ -159,28 +159,6 @@ window.addEventListener("load", (e) => {
     );
   });
 
-  // console.log(tagSet, projectNameSet);
-
-  // todayPage.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  //   elementReset();
-  //   displayElements(content,contentGenerator());
-  //
-  //   form = document.querySelector(".content-form");
-  // });
-
-  // content.addEventListener("click", (e) => {
-  //   let formData;
-  //   form.addEventListener("submit", (event) => {
-  //     formData = new FormData(event.target);
-  //     if (e.target.closest(".addTaskBtn")) {
-  //       displayElements(tasks,taskSet[0].element);
-  //       form.reset();
-  //       event.preventDefault();
-  //     }
-  //   });
-  // });
-
   window.addEventListener("click", (e) => {
     if (e.target.closest(".navBtn")) {
       currentTab = e.target.textContent;
@@ -215,8 +193,6 @@ window.addEventListener("load", (e) => {
 
         elementReset(taskContainer, ["tasks"]);
         displayElements(taskContainer, currentProjectTask);
-
-        deletedTaskWarning = document.querySelector(".deletedTaskWarning");
         event.preventDefault();
         form.reset();
       });
