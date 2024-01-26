@@ -241,3 +241,7 @@ body {
 .removeWarning {
   @apply translate-y-5 opacity-0;
 }
+
+.hideTask{
+  @apply hidden
+}

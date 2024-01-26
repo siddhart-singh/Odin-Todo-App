@@ -1,5 +1,5 @@
 export default function removeWarning(element, time) {
-  setTimeout(() => {
+  return setTimeout(() => {
     element.classList.add("removeWarning");
     setTimeout(() => {
       element.remove();

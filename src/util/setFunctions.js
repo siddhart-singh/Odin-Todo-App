@@ -11,7 +11,8 @@ export function addItems(setName = new Set(), items = []) {
 
 export function removeItems(setName = new Set(), items = []) {
   items.forEach((item) => {
-    setName.remove(item);
+    setName.delete(item);
   });
+  console.log(setName);
   return setName;
 }

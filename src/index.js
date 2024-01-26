@@ -15,7 +15,7 @@ import { createEl } from "./util/elementCreator";
 
 import { addItems, removeItems } from "./util/setFunctions";
 
-import { createTaskObject } from "./util/taskMethods";
+import { createTaskObject, createDeleteTaskObject } from "./util/createObjects";
 
 import { homepageGenerator } from "./homepage";
 
@@ -45,11 +45,11 @@ import { add, set, sub } from "date-fns";
 import taskGenerator from "./generateTask";
 import displayNavForm from "./util/displayNavForm";
 
-const taskArray = [];
+const taskSet = new Set();
+const completedtaskSet = new Set();
 const tagSet = new Set();
 const prioritySet = new Set();
 const projectNameSet = new Set();
-
 window.addEventListener("load", (e) => {
   const body = document.querySelector("body");
   body.classList.add("body");
@@ -174,7 +174,7 @@ window.addEventListener("load", (e) => {
   //   form.addEventListener("submit", (event) => {
   //     formData = new FormData(event.target);
   //     if (e.target.closest(".addTaskBtn")) {
-  //       displayElements(tasks,taskArray[0].element);
+  //       displayElements(tasks,taskSet[0].element);
   //       form.reset();
   //       event.preventDefault();
   //     }
@@ -195,11 +195,11 @@ window.addEventListener("load", (e) => {
       setDefaultProjectOption(document.querySelector("#project"), currentTab);
       const form = document.querySelector(".content-form");
       const taskContainer = document.querySelector(".tasks");
-      displayElements(taskContainer, getTaskElements(taskArray, currentTab));
+      displayElements(taskContainer, getTaskElements(taskSet, currentTab));
 
       form.addEventListener("submit", (event) => {
         const formData = new FormData(form);
-        taskArray.push(
+        addItems(taskSet, [
           createTaskObject(
             getUserInputs(formData, [
               "name",
@@ -210,8 +210,8 @@ window.addEventListener("load", (e) => {
               "project",
             ]),
           ),
-        );
-        const currentProjectTask = getTaskElements(taskArray, currentTab);
+        ]);
+        const currentProjectTask = getTaskElements(taskSet, currentTab);
 
         elementReset(taskContainer, ["tasks"]);
         displayElements(taskContainer, currentProjectTask);
@@ -224,18 +224,41 @@ window.addEventListener("load", (e) => {
 
     if (e.target.closest(".completeMarker")) {
       const completeMarker = e.target;
-      taskArray.forEach((task) => {
+      taskSet.forEach((task) => {
         if (e.target.closest(".task").isEqualNode(task.element[0])) {
-          toggleClasses(completeMarker, "completeMarkerChecked");
-        }
-        if (completeMarker.classList.contains("completeMarkerChecked")) {
+          completeMarker.classList.add("completeMarkerChecked");
+          setTimeout(() => {
+            task.element[0].classList.add("hideTask");
+            completeMarker.classList.remove("completeMarkerChecked");
+          }, 500);
           warning = generateWarning();
+          const warningBtn = warning[0].querySelector(".undoWarningBtn");
+          const clearTaskID = setTimeout(() => {
+            removeItems(taskSet, [task]);
+          }, 5000);
+          addItems(completedtaskSet, [
+            createDeleteTaskObject([warningBtn, task, clearTaskID]),
+          ]);
+          console.log(completedtaskSet);
+
           displayElements(deletedTaskWarning, warning);
           removeWarning(warning[0], 5000);
-        } else {
-          removeWarning(warning[0], 0);
+        }
+      });
+    }
+
+    if (e.target.closest(".undoWarningBtn")) {
+      const undoDomBtn = e.target.closest(".undoWarningBtn");
+      [...completedtaskSet].forEach((task) => {
+        if (task.undoBtn.isEqualNode(undoDomBtn)) {
+          task.taskEl.element[0].classList.remove("hideTask");
+          task.undoBtn.closest(".warning").classList.add("removeWarning");
+          removeItems(completedtaskSet, [task]);
+          clearTimeout(task.clearTaskId);
         }
       });
     }
   });
 });
+
+function removeCompletedTask(taskSet, completedtaskSet, task) {}
