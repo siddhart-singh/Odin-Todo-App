@@ -50,6 +50,16 @@ const completedtaskSet = new Set();
 const tagSet = new Set();
 const prioritySet = new Set();
 const projectNameSet = new Set();
+
+addItems(prioritySet, [
+  "Some Other Day",
+  "Not Today",
+  "Today",
+  "In an Hour",
+  "In 5 Minutes",
+  "Right About Now",
+  "Should've Done Yesterday",
+]);
 window.addEventListener("load", (e) => {
   const body = document.querySelector("body");
   body.classList.add("body");
@@ -82,7 +92,8 @@ window.addEventListener("load", (e) => {
 
   const deletedTaskWarning = document.querySelector(".deletedTaskWarning");
   let currentTab = "today",
-    warning;
+    warning,
+    taskContainer;
 
   projectFormExpander.addEventListener("click", (e) => {
     e.preventDefault();
@@ -167,12 +178,12 @@ window.addEventListener("load", (e) => {
         currentTab,
         projectNameSet,
         tagSet,
+        prioritySet,
       );
       displayElements(content, contentPage);
-
       setDefaultProjectOption(document.querySelector("#project"), currentTab);
       const form = document.querySelector(".content-form");
-      const taskContainer = document.querySelector(".tasks");
+      taskContainer = document.querySelector(".tasks");
       displayElements(taskContainer, getTaskElements(taskSet, currentTab));
 
       form.addEventListener("submit", (event) => {
@@ -201,7 +212,7 @@ window.addEventListener("load", (e) => {
     if (e.target.closest(".completeMarker")) {
       const completeMarker = e.target;
       taskSet.forEach((task) => {
-        if (e.target.closest(".task").isEqualNode(task.element[0])) {
+        if (e.target.closest(".task") == task.element[0]) {
           completeMarker.classList.add("completeMarkerChecked");
           setTimeout(() => {
             task.element[0].classList.add("hideTask");
@@ -226,13 +237,25 @@ window.addEventListener("load", (e) => {
     if (e.target.closest(".undoWarningBtn")) {
       const undoDomBtn = e.target.closest(".undoWarningBtn");
       [...completedtaskSet].forEach((task) => {
-        if (task.undoBtn.isEqualNode(undoDomBtn)) {
+        if (task.undoBtn == undoDomBtn) {
           task.taskEl.element[0].classList.remove("hideTask");
           task.undoBtn.closest(".warning").classList.add("removeWarning");
           removeItems(completedtaskSet, [task]);
           clearTimeout(task.clearTaskId);
         }
       });
+    }
+
+    if (e.target.closest(".taskDelete")) {
+      const taskDOM = e.target.closest(".task");
+      [...taskSet].forEach((task) => {
+        if (task.element[0] == taskDOM) {
+          removeItems(taskSet, [task]);
+        }
+      });
+      console.log(taskSet);
+      elementReset(taskContainer, ["tasks"]);
+      displayElements(taskContainer, getTaskElements(taskSet, currentTab));
     }
   });
 });

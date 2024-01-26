@@ -13,6 +13,5 @@ export function removeItems(setName = new Set(), items = []) {
   items.forEach((item) => {
     setName.delete(item);
   });
-  console.log(setName);
   return setName;
 }

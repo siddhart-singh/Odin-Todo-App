@@ -3,7 +3,7 @@
 import { createEl } from "./util/elementCreator";
 import { generateFormOption } from "./util/generateFormOptions";
 
-export function contentPageGenerator(currentTab, projects, labels) {
+export function contentPageGenerator(currentTab, projects, labels, priorities) {
   const contentHeader = createEl("header", ["content-header"]);
   const contentHeaderHeading = createEl(
     "h1",
@@ -16,12 +16,14 @@ export function contentPageGenerator(currentTab, projects, labels) {
 
   const contentContainer = createEl("section", ["contentContainer"]);
 
-  contentContainer.append(formGenerator(projects, labels, currentTab));
+  contentContainer.append(
+    formGenerator(projects, labels, priorities, currentTab),
+  );
 
   return [contentHeader, tasks, contentContainer];
 }
 
-function formGenerator(projects, labels, currentTab) {
+function formGenerator(projects, labels, priorities, currentTab) {
   const contentForm = createEl("form", ["content-form"]);
   const todoDetails = createEl("div", ["todo-details"], contentForm);
   const todoDetailsName = createEl(
@@ -66,11 +68,13 @@ function formGenerator(projects, labels, currentTab) {
     "",
     { name: "priority", id: "priority" },
   );
-  createEl("option", [], todoDetailsPriority, "Priority", {
+
+  generateFormOption(priorities, todoDetailsPriority, "Priority", {
     value: "no-value",
     disabled: true,
     selected: true,
   });
+
   const todoDetailsTags = createEl(
     "select",
     ["form-details-tags"],
