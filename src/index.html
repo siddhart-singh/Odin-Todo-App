@@ -89,7 +89,7 @@
                         <button class="addProjectFormBtn cancelBtn">-</button>
                     </form>
                     <div class="labelsContentContainer ">
-                        <div class="label ">
+                        <div class="label">
                             <p class="labelTag">WORK</p>
                             <button class="labelDeleteBtn"><svg class="labelDeleteBtnSvg" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -107,7 +107,9 @@
         </nav>
         <div class="deletedTaskWarning displayWarning">
             <div class="warning displayWarning">
-                <span class="timer"></span>
+                <svg class="timer"  viewBox="0 0 32 32">
+                    <circle class="circle" r="15" cx="16" cy="16" fill="transparent"></circle>
+                </svg>
                 <button class="undoWarningBtn">UNDO1</button>
             </div>
         </div>
@@ -130,10 +132,37 @@
                             <span class="taskTag ">School</span>
                         </div>
                     </div>
-                    <div class="taskOptions ">
+                    <div class="taskOptions relative ">
                         <button class="taskEdit ">
                             Edit
                         </button>
+                        <form action="" class="absolute left-32 flex flex-col bg-black">
+                            <div class="flex flex-col">
+                                <input class=" " required=" true" type="text" name="task-name" placeholder="Task name">
+                                <input class="" type="text" name="description" placeholder="Description">
+
+                                <div class=" flex flex-col">
+                                    <input class="w-full" type=" date" name="date" placeholder="Today">
+                                    <select class="" name="priority">
+                                        <option value="no-value" disabled selected>Priority</option>
+                                    </select>
+                                    <select class="" name="Label">
+                                        <option value=" no-value" disabled selected>Label</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="">
+                                <select name="project" class="">
+                                    <option value="today" selected>Today</option>
+                                </select>
+                                <div class="">
+                                    <button class="todo-form-btns" type="reset">Clear</button>
+                                    <button class="todo-form-btns" type="submit">Add
+                                        Task</button>
+                                </div>
+                            </div>
+                        </form>
                         <button class="taskDelete ">Delete</button>
 
                     </div>
@@ -208,12 +237,12 @@
             </div>
 
             <section class="contentContainer">
-                <form class="content-form">
+                <form class="content-form ">
                     <div class="todo-details ">
-                        <input class="todo-details-name " required="true" type="text" name="task-name" id="task-name"
+                        <input class="todo-details-name " required="true" type="text" name="task-name" id="task-name "
                             placeholder="Task name">
-                        <input class="todo-details-description" type="text" name="description" id="description"
-                            placeholder="Description">
+                        <input class="todo-details-description bg-transparent" type="text" name="description"
+                            id="description" placeholder="Description">
 
                         <div class="form-optionals ">
                             <input class="form-details-tags" type="date" name="date" id="date" placeholder="Today">
@@ -231,14 +260,15 @@
                             <option value="today" selected>Today</option>
                         </select>
                         <div class="form-button-container ">
-                            <button class="todo-form-btns" type="reset">Clear</button>
-                            <button class="todo-form-btns" type="submit">Add
+                            <button class="todo-form-btns  " type="reset">Clear</button>
+                            <button class="todo-form-btns  " type="submit">Add
                                 Task</button>
                         </div>
                     </div>
                 </form>
             </section>
         </div>
+
     </body>
     <script>
         const btn = document.querySelector(".completeMarker");

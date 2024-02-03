@@ -127,3 +127,4 @@ function formGenerator(projects, labels, priorities, currentTab) {
 
   return contentForm;
 }
+

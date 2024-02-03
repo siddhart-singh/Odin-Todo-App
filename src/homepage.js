@@ -215,15 +215,57 @@ function createNavInputs(
       name: `${inputName}`,
     },
   );
-  createEl("button", ["addNavFormBtn", `${btnClass}addBtn`], addNavForm, "+", {
-    required: true,
-    type: "submit",
-  });
-  createEl(
+  const projectFormAddBtn = createEl(
+    "button",
+    ["addNavFormBtn", `${btnClass}addBtn`],
+    addNavForm,
+    "",
+    {
+      required: true,
+      type: "submit",
+    },
+  );
+
+  createSVG(
+    {
+      class: "w-6 h-6 ",
+      "aria-hidden": "true",
+      xmlns: "http://www.w3.org/2000/svg",
+      fill: "currentColor",
+      viewBox: "0 0 24 24",
+    },
+    {
+      "fill-rule": "evenodd",
+      d: "M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm11-4.2a1 1 0 1 0-2 0V11H7.8a1 1 0 1 0 0 2H11v3.2a1 1 0 1 0 2 0V13h3.2a1 1 0 1 0 0-2H13V7.8Z",
+      "clip-rule": "evenodd",
+    },
+    ["addNavFormBtn"],
+    projectFormAddBtn,
+  );
+
+  const projectFormCancelBtn = createEl(
     "button",
     ["addNavFormBtn", `${btnClass}cancelBtn`],
     addNavForm,
-    "-",
+    "",
   );
+
+  createSVG(
+    {
+      class: "w-6 h-6 ",
+      "aria-hidden": "true",
+      xmlns: "http://www.w3.org/2000/svg",
+      fill: "currentColor",
+      viewBox: "0 0 24 24",
+    },
+    {
+      "fill-rule": "evenodd",
+      d: "M2 12a10 10 0 1 1 20 0 10 10 0 0 1-20 0Zm7.7-3.7a1 1 0 0 0-1.4 1.4l2.3 2.3-2.3 2.3a1 1 0 1 0 1.4 1.4l2.3-2.3 2.3 2.3a1 1 0 0 0 1.4-1.4L13.4 12l2.3-2.3a1 1 0 0 0-1.4-1.4L12 10.6 9.7 8.3Z",
+      "clip-rule": "evenodd",
+    },
+    ["addNavFormBtn"],
+    projectFormCancelBtn,
+  );
+
   return addNavForm;
 }

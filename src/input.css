@@ -14,35 +14,41 @@ body {
 }
 
 .nav {
-  @apply sticky left-0 top-0 flex max-h-full min-h-screen w-80  flex-col gap-2 bg-red-300;
+  @apply sticky left-0 top-0 flex max-h-full min-h-screen w-80  flex-col bg-gray-200 p-2;
 }
 
 .userIcon {
-  @apply p-3;
+  @apply px-3 pb-5 pt-4;
 }
 
 .userIconSvg {
-  @apply h-8 w-8 text-gray-800 dark:text-black;
+  @apply h-9 w-9 text-blue-600 dark:text-blue-600;
 }
 
 .navSectionContainer {
-  @apply px-3;
+  @apply mb-2 rounded-lg p-2 transition-all hover:bg-gray-300 hover:shadow;
 }
 
 .navSectionContainerHeader {
   @apply flex items-center justify-between gap-2 pr-0.5;
 }
-
 .navBtn {
-  @apply w-full bg-white p-2 text-left text-sm font-semibold;
+  @apply w-full rounded-md bg-white p-2 text-left text-sm font-bold  text-blue-600 shadow-lg hover:bg-gray-50 hover:text-blue-800 hover:shadow-xl;
 }
 
+.activeTab {
+  @apply bg-blue-600  text-gray-50 shadow-sm transition-all;
+}
 .navSectionContainerHeading {
-  @apply mb-2 mt-4 font-bold;
+  @apply font-bold text-blue-600;
 }
 
 .navSectionContainerBtn {
   @apply flex items-center justify-center;
+}
+
+.navSectionContainerBtn svg {
+  @apply text-blue-600 dark:text-blue-600;
 }
 
 .navSectionContainerAddBtn {
@@ -71,19 +77,19 @@ body {
 
 .addProjectForm,
 .addLabelForm {
-  @apply grid h-0 w-64 grid-cols-6 items-center gap-1 bg-white p-0 transition-all;
+  @apply h-0 w-64  bg-white p-0 shadow transition-all  focus-within:shadow-sm hover:shadow-md;
 }
 
 .displayProjectForm {
-  @apply h-9 p-2 transition-all;
+  @apply my-2 flex h-9 gap-1 rounded-md p-2 transition-all;
 }
 
 .addNavFormInput {
-  @apply col-span-4 bg-transparent text-sm font-semibold text-black placeholder:text-sm placeholder:font-semibold focus-visible:outline-none;
+  @apply col-span-4 w-full bg-transparent text-sm font-bold text-blue-700 placeholder:text-sm placeholder:font-bold focus-visible:outline-none;
 }
 
 .addNavFormBtn {
-  @apply rounded-full bg-black  text-sm font-semibold text-white;
+  @apply h-5 w-5 text-blue-600 dark:text-blue-600;
 }
 
 /* .labelsContentContainer {
@@ -91,7 +97,7 @@ body {
 } */
 
 .label {
-  @apply flex min-w-fit items-center justify-center gap-1.5 bg-red-500 px-3 py-1 text-xs font-semibold tracking-wider;
+  @apply flex min-w-fit items-center justify-center gap-1.5 rounded-full bg-blue-600  px-3 py-1 text-xs font-bold tracking-wider text-gray-50 shadow transition-all hover:bg-gray-100 hover:text-blue-600 hover:shadow-md hover:dark:text-blue-600;
 }
 
 .labelDeleteBtn {
@@ -99,7 +105,7 @@ body {
 }
 
 .labelDeleteBtnSvg {
-  @apply h-5 w-5 text-gray-800 dark:text-white;
+  @apply h-5 w-5 text-inherit dark:text-inherit;
 }
 
 .labelsContentContainer {
@@ -107,15 +113,15 @@ body {
 }
 
 .content {
-  @apply relative flex h-screen w-full flex-col items-start justify-start overflow-scroll;
+  @apply relative flex h-screen w-full flex-col items-start justify-start overflow-scroll overflow-x-hidden bg-gray-100 text-black;
 }
 
 .contentContainer {
-  @apply flex w-full items-center justify-center px-14 py-4;
+  @apply flex w-full items-center  justify-center px-14 py-4;
 }
 
 .content-form {
-  @apply flex w-full max-w-screen-md flex-col gap-2 border border-black p-2;
+  @apply flex w-full max-w-screen-md flex-col gap-2 rounded-lg  border border-black border-opacity-20 bg-transparent p-2;
 }
 
 .content-header {
@@ -123,7 +129,7 @@ body {
 }
 
 .content-header-heading {
-  @apply mx-44 border-b border-black border-opacity-20 pb-2 text-xl font-bold;
+  @apply mx-44 border-b border-black border-opacity-20 pb-2 text-3xl font-bold text-blue-700;
 }
 
 .todo-details {
@@ -131,11 +137,11 @@ body {
 }
 
 .todo-details-name {
-  @apply text-base  font-semibold placeholder:text-base placeholder:font-bold focus-visible:outline-none;
+  @apply bg-transparent  p-0 text-base font-bold placeholder:text-base placeholder:font-extrabold focus-visible:outline-none;
 }
 
 .todo-details-description {
-  @apply text-sm font-semibold placeholder:text-sm placeholder:font-semibold focus-visible:outline-none;
+  @apply bg-transparent p-0 text-sm font-bold placeholder:text-sm placeholder:font-bold focus-visible:outline-none;
 }
 
 .form-optionals {
@@ -143,7 +149,7 @@ body {
 }
 
 .form-details-tags {
-  @apply border border-black bg-transparent px-1 py-0.5 text-sm font-semibold text-black text-opacity-55;
+  @apply rounded border  border-black border-opacity-20 bg-transparent p-0.5 text-sm font-semibold text-black text-opacity-55 outline-none;
 }
 
 .form-submit {
@@ -151,27 +157,27 @@ body {
 }
 
 .form-button-container {
-  @apply flex gap-3;
+  @apply flex gap-1;
 }
 
 .todo-form-btns {
-  @apply border border-black px-3 py-1 text-sm font-semibold;
+  @apply rounded  px-3 py-1 text-sm font-semibold text-gray-700 transition-all hover:bg-blue-600 hover:text-white;
 }
 
 .deletedTaskWarning {
-  @apply absolute z-10 right-10  top-5 flex flex-col-reverse gap-2 transition-all;
+  @apply absolute right-10 top-5  z-10 flex flex-col-reverse gap-2;
 }
 
 .warning {
-  @apply flex -translate-y-5 items-center justify-between gap-4 bg-pink-400  px-4 py-2 opacity-0 transition-all;
+  @apply flex -translate-y-5 items-center justify-between gap-0.5 rounded-full bg-gray-200 px-3 py-2 transition-all hover:bg-gray-300;
 }
 
 .timer {
-  @apply h-5 w-5 rounded-full border-4 border-green-500;
+  @apply h-5 w-5 rounded-full;
 }
 
 .undoWarningBtn {
-  @apply text-sm font-bold;
+  @apply rounded-full px-1 text-sm font-bold text-gray-700 transition-all hover:text-gray-950;
 }
 
 .tasks {
@@ -179,7 +185,7 @@ body {
 }
 
 .task {
-  @apply relative grid w-full max-w-screen-md gap-2 border border-black p-2;
+  @apply grid  w-full max-w-screen-md gap-2 rounded-lg border  border-black border-opacity-30 p-2;
   grid-template-columns: auto 1fr auto;
 }
 
@@ -188,11 +194,11 @@ body {
 }
 
 .completeMarker {
-  @apply block h-4 w-4 rounded-full border-4 border-orange-600 bg-transparent  transition-colors;
+  @apply block h-4 w-4 rounded-full border-4 border-blue-600 bg-transparent ring-0 transition-all hover:ring-2;
 }
 
 .completeMarkerChecked {
-  @apply bg-orange-600;
+  @apply bg-blue-600;
 }
 
 .displayWarning {
@@ -200,25 +206,37 @@ body {
 }
 
 .taskContent {
-  @apply flex flex-col gap-1;
+  @apply flex flex-col gap-0.5;
 }
 
 .taskHeading {
-  @apply text-base font-bold;
+  @apply text-base font-extrabold;
 }
 
 .taskDescription {
-  @apply text-sm font-semibold;
+  @apply text-sm font-bold;
 }
 
 .otherTags {
-  @apply flex gap-2 text-sm font-semibold;
+  @apply mt-0.5 flex gap-2 text-sm font-semibold;
+}
+
+.taskDate {
+  @apply bg-green-100 text-green-600 outline outline-1 outline-green-600;
+}
+
+.taskPriority {
+  @apply bg-red-100 text-red-600 outline outline-1 outline-red-600;
+}
+
+.taskTag {
+  @apply bg-orange-100 text-orange-600 outline outline-1 outline-orange-600;
 }
 
 .taskDate,
 .taskPriority,
 .taskTag {
-  @apply border  border-black px-2 py-0.5;
+  @apply rounded-full px-2 py-0.5  text-xs font-extrabold;
 }
 
 .taskOptions {
@@ -227,7 +245,7 @@ body {
 
 .taskEdit,
 .taskDelete {
-  @apply border border-black px-3 py-0.5 text-sm font-bold;
+  @apply rounded  px-3 py-1 text-sm font-extrabold transition-all hover:bg-red-500 hover:text-gray-50;
 }
 
 .divider {
@@ -242,6 +260,30 @@ body {
   @apply translate-y-5 opacity-0;
 }
 
-.hideTask{
-  @apply hidden
+.hideTask {
+  @apply hidden;
+}
+
+input {
+  @apply rounded bg-white  px-2 py-1 text-black;
+}
+
+.project {
+  @apply mb-2 mr-1 shadow-2xl;
+}
+
+.circle {
+  @apply h-full w-full rounded-full stroke-green-500;
+  stroke-dashoffset: 0;
+  stroke-width: 10;
+  stroke-dasharray: 300;
+  animation: dash 5s linear alternate;
+}
+@keyframes dash {
+  from {
+    stroke-dashoffset: 300;
+  }
+  to {
+    stroke-dashoffset: 200;
+  }
 }

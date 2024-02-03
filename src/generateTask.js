@@ -64,7 +64,6 @@ export default function taskGenerator(userInput = {}) {
     );
   }
   const taskOptions = createEl("div", ["taskOptions"], task);
-  const taskEditBtn = createEl("button", ["taskEdit"], taskOptions, "Edit");
   const taskDeleteBtn = createEl(
     "button",
     ["taskDelete"],

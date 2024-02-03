@@ -173,6 +173,8 @@ window.addEventListener("load", (e) => {
   window.addEventListener("click", (e) => {
     if (e.target.closest(".navBtn")) {
       currentTab = e.target.textContent;
+      const navBtn = document.querySelectorAll(".navBtn");
+      changeActiveTab(currentTab, navBtn);
       elementReset(content, ["content"]);
       const contentPage = contentPageGenerator(
         currentTab,
@@ -253,11 +255,18 @@ window.addEventListener("load", (e) => {
           removeItems(taskSet, [task]);
         }
       });
-      console.log(taskSet);
       elementReset(taskContainer, ["tasks"]);
       displayElements(taskContainer, getTaskElements(taskSet, currentTab));
     }
   });
 });
 
-function removeCompletedTask(taskSet, completedtaskSet, task) {}
+function changeActiveTab(currentTab, navBtn) {
+  navBtn.forEach((btn) => {
+    if (btn.textContent == currentTab) {
+      btn.classList.add("activeTab");
+    } else {
+      btn.classList.remove("activeTab");
+    }
+  });
+}
