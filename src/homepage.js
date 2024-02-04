@@ -206,7 +206,7 @@ function createNavInputs(
   const addNavForm = createEl("form", [`${formClass}`]);
   const addNavInput = createEl(
     "input",
-    ["addNavFormInput", `${inputClass}`],
+    ["addNavFormInput", "hideVisibility", `${inputClass}`],
     addNavForm,
     "",
     {
@@ -217,7 +217,7 @@ function createNavInputs(
   );
   const projectFormAddBtn = createEl(
     "button",
-    ["addNavFormBtn", `${btnClass}addBtn`],
+    ["addNavFormBtn", "hideVisibility", `${btnClass}addBtn`],
     addNavForm,
     "",
     {
@@ -245,7 +245,7 @@ function createNavInputs(
 
   const projectFormCancelBtn = createEl(
     "button",
-    ["addNavFormBtn", `${btnClass}cancelBtn`],
+    ["addNavFormBtn", "hideVisibility", `${btnClass}cancelBtn`],
     addNavForm,
     "",
   );

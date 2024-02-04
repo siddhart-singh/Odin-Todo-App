@@ -91,18 +91,33 @@ window.addEventListener("load", (e) => {
   const labelCancelBtn = document.querySelector(".labelCancelBtn");
 
   const deletedTaskWarning = document.querySelector(".deletedTaskWarning");
-  let currentTab = "today",
+  let currentTab = "Today",
     warning,
     taskContainer;
 
   projectFormExpander.addEventListener("click", (e) => {
     e.preventDefault();
+
+    toggleClasses(
+      e.target.closest(".navSectionContainerBtnSvg"),
+      "rotateSvgBtn",
+    );
     toggleClasses(projectForm, "displayProjectForm");
+    [...projectForm.children].forEach((el) => {
+      toggleClasses(el, ["hideVisibility"]);
+    });
   });
 
   labelFormExpander.addEventListener("click", (e) => {
     e.preventDefault();
+    toggleClasses(
+      e.target.closest(".navSectionContainerBtnSvg"),
+      "rotateSvgBtn",
+    );
     toggleClasses(labelForm, "displayProjectForm");
+    [...labelForm.children].forEach((el) => {
+      toggleClasses(el, ["hideVisibility"]);
+    });
   });
 
   projectCollapseBtn.addEventListener("click", (e) => {
@@ -170,42 +185,33 @@ window.addEventListener("load", (e) => {
     );
   });
 
+  displayPage(currentTab, content, taskSet);
   window.addEventListener("click", (e) => {
     if (e.target.closest(".navBtn")) {
       currentTab = e.target.textContent;
-      const navBtn = document.querySelectorAll(".navBtn");
-      changeActiveTab(currentTab, navBtn);
-      elementReset(content, ["content"]);
-      const contentPage = contentPageGenerator(
-        currentTab,
-        projectNameSet,
-        tagSet,
-        prioritySet,
-      );
-      displayElements(content, contentPage);
-      setDefaultProjectOption(document.querySelector("#project"), currentTab);
+      displayPage(currentTab, content, taskSet);
+    }
+
+    if (e.target.closest(".content-form")) {
       const form = document.querySelector(".content-form");
       taskContainer = document.querySelector(".tasks");
-      displayElements(taskContainer, getTaskElements(taskSet, currentTab));
-
       form.addEventListener("submit", (event) => {
+        event.stopPropagation();
         const formData = new FormData(form);
-        addItems(taskSet, [
-          createTaskObject(
-            getUserInputs(formData, [
-              "name",
-              "description",
-              "date",
-              "priority",
-              "tag",
-              "project",
-            ]),
-          ),
+        const userInputs = getUserInputs(formData, [
+          "name",
+          "description",
+          "date",
+          "priority",
+          "tag",
+          "project",
         ]);
-        const currentProjectTask = getTaskElements(taskSet, currentTab);
-
-        elementReset(taskContainer, ["tasks"]);
-        displayElements(taskContainer, currentProjectTask);
+        if (userInputs != -1) {
+          addItems(taskSet, [createTaskObject(userInputs)]);
+          const currentProjectTask = getTaskElements(taskSet, currentTab);
+          elementReset(taskContainer, ["tasks"]);
+          displayElements(taskContainer, currentProjectTask);
+        }
         event.preventDefault();
         form.reset();
       });
@@ -219,7 +225,7 @@ window.addEventListener("load", (e) => {
           setTimeout(() => {
             task.element[0].classList.add("hideTask");
             completeMarker.classList.remove("completeMarkerChecked");
-          }, 500);
+          }, 250);
           warning = generateWarning();
           const warningBtn = warning[0].querySelector(".undoWarningBtn");
           const clearTaskID = setTimeout(() => {
@@ -269,4 +275,20 @@ function changeActiveTab(currentTab, navBtn) {
       btn.classList.remove("activeTab");
     }
   });
+}
+
+function displayPage(currentTab, content, taskSet) {
+  const navBtn = document.querySelectorAll(".navBtn");
+  changeActiveTab(currentTab, navBtn);
+  elementReset(content, ["content"]);
+  const contentPage = contentPageGenerator(
+    currentTab,
+    projectNameSet,
+    tagSet,
+    prioritySet,
+  );
+  displayElements(content, contentPage);
+  setDefaultProjectOption(document.querySelector("#project"), currentTab);
+  const taskContainer = document.querySelector(".tasks");
+  displayElements(taskContainer, getTaskElements(taskSet, currentTab));
 }
