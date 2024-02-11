@@ -136,9 +136,11 @@ window.addEventListener("load", (e) => {
     e.preventDefault();
     projectForm.reset();
 
+    addItems(projectNameSet, [
+      getUserInputs(formData, ["projectName"])["projectName"],
+    ]);
+
     displayNavOptionals(
-      formData,
-      "projectName",
       projectNameSet,
       projectListContent,
       "projectListContainer",
@@ -163,9 +165,9 @@ window.addEventListener("load", (e) => {
     e.preventDefault();
     labelForm.reset();
 
+    addItems(tagSet, [getUserInputs(formData, [`labelName`])[`labelName`]]);
+
     displayNavOptionals(
-      formData,
-      "labelName",
       tagSet,
       labelListContent,
       "labelsContentContainer",
@@ -234,7 +236,6 @@ window.addEventListener("load", (e) => {
           addItems(completedtaskSet, [
             createDeleteTaskObject([warningBtn, task, clearTaskID]),
           ]);
-          console.log(completedtaskSet);
 
           displayElements(deletedTaskWarning, warning);
           removeWarning(warning[0], 5000);
@@ -263,6 +264,36 @@ window.addEventListener("load", (e) => {
       });
       elementReset(taskContainer, ["tasks"]);
       displayElements(taskContainer, getTaskElements(taskSet, currentTab));
+    }
+
+    if (e.target.closest(".labelDeleteBtn")) {
+      const tagContent = e.target.closest(".label").textContent;
+      const tagFormOption = document.getElementById("tag");
+      removeItems(tagSet, [tagContent]);
+      [...taskSet].forEach((task) => {
+        if (task.tag == tagContent) {
+          task.tag = null;
+          task.element[0].querySelector(".taskTag").remove();
+        }
+      });
+      displayNavOptionals(
+        tagSet,
+        labelListContent,
+        "labelsContentContainer",
+        generateLabel,
+      );
+      const defaultElementAttributes = {
+        value: "no-value",
+        disabled: true,
+        selected: true,
+      };
+      displayFormOptionals(
+        tagFormOption,
+        "form-details-tags",
+        "Tags",
+        defaultElementAttributes,
+        tagSet,
+      );
     }
   });
 });

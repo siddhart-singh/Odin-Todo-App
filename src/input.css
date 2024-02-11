@@ -68,7 +68,7 @@ body {
 }
 
 .rotateSvgBtn {
-  @apply rotate-45
+  @apply rotate-45;
 }
 
 .navSectionContainerContentContainer {
@@ -294,4 +294,24 @@ input {
 
 .hideVisibility {
   @apply collapse;
+}
+
+.wrapper {
+  @apply  absolute flex h-full w-full flex-col items-start justify-center gap-2 bg-black bg-opacity-80 p-12;
+}
+
+.wrapper-heading {
+  @apply text-2xl font-extrabold text-gray-50;
+}
+
+.wrapperBtns {
+  @apply flex gap-2;
+}
+
+.wrapperDeleteBtn {
+  @apply rounded bg-blue-600 px-3 py-1 text-base font-extrabold text-white hover:bg-opacity-80;
+}
+
+.undoWrapperDeleteBtn {
+  @apply rounded bg-red-600 px-3 py-1 text-base font-extrabold text-white hover:bg-opacity-80;
 }
